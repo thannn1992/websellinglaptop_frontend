@@ -4,11 +4,19 @@ import { takeAllPictureOfOneLaptop } from "../../../api/PictureAPI";
 import { error } from "console";
 import { Carousel } from "react-responsive-carousel";
 
-interface BookPicturesInterface{
+interface BookPicturesInterface {
     laptopID: number;
 }
 
-export const LaptopPictures: React.FC<BookPicturesInterface> = (prop) =>{
+export const LaptopPictures: React.FC<BookPicturesInterface> = (prop) => {
+
+    // HANDEL CLICK BUTTON IMAGE
+    const handelImageLick = (src: string) => {
+        const bigImg = document.querySelector(".LaptopPictureDetail-img-left img")as HTMLImageElement;
+        if(bigImg){
+            bigImg.src = src;
+        }
+    }
 
     const laptopID: number = prop.laptopID;
 
@@ -16,7 +24,7 @@ export const LaptopPictures: React.FC<BookPicturesInterface> = (prop) =>{
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
     const [informError, setInformError] = useState(null);
 
-    useEffect(()=>{
+    useEffect(() => {
         takeAllPictureOfOneLaptop(laptopID).then(
             pictureDate => {
                 setListPictureLaptop(pictureDate);
@@ -27,11 +35,11 @@ export const LaptopPictures: React.FC<BookPicturesInterface> = (prop) =>{
                 setInformError(error.message);
             }
         )
-    },[]
+    }, []
     )
 
-    if(upLoadingData){
-        return(
+    if (upLoadingData) {
+        return (
             <div>
                 <h1>
                     Uploading data!
@@ -40,28 +48,32 @@ export const LaptopPictures: React.FC<BookPicturesInterface> = (prop) =>{
         )
     }
 
-    if(informError){
-        return(
+    if (informError) {
+        return (
             <div>
-                 Error: {informError}
+                Error: {informError}
             </div>
         )
     }
 
-    return(
-        <div className="row">
-            <div className="col-12">
-               <Carousel showArrows={true} showIndicators={true}>
-                {
-                    listPicturesLaptop.map(
-                        (picture, index) =>(
-                            <div key={index}>
-                                    <img src={picture.getPictureData()} alt={`${picture.getPictureName()}`} style={{maxWidth:'250px'}} />
-                            </div>
+    return (
+        <div className="LaptopPictureDetail">
+            <div className="LaptopPictureDetail-content d-flex">
+                <div className="LaptopPictureDetail-img-left">
+                        <img src={listPicturesLaptop[0].getPictureData()} alt={`${listPicturesLaptop[0].getPictureData()}`} />
+                </div>
+                <div className="LaptopPictureDetail-img-right">
+                    {
+                        listPicturesLaptop.map(
+                            (picture, index) => (
+                                <div key={index}>
+                                    <img src={picture.getPictureData()} alt={`${picture.getPictureName()}`} onClick={()=> handelImageLick(picture.getPictureData())}  />
+                                </div>
+                            )
                         )
-                    )
-                }
-               </Carousel>
+                    }
+
+                </div>
             </div>
         </div>
     )

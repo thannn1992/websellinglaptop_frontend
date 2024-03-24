@@ -38,7 +38,8 @@ async function takeLaptop(link: string): Promise<ResultPagingInterface> {
             responseData[key].upgradeAbilityDiskDrive,
             responseData[key].webcam,
             responseData[key].operatingSystem,
-            responseData[key].displaySize
+            responseData[key].displaySize,
+            responseData[key].coating
         );
 
         result.push(laptop);
@@ -110,7 +111,8 @@ export async function takeALaptopFromID(laptopID: number): Promise<LaptopModel |
                 laptopData.upgradeAbilityDiskDrive,
                 laptopData.webcam,
                 laptopData.operatingSystem,
-                laptopData.displaySize
+                laptopData.displaySize,
+                laptopData.coating
             );
 
             return laptop;

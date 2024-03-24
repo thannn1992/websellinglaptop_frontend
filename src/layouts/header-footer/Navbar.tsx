@@ -1,6 +1,7 @@
 import { log } from "console";
 import React, { ChangeEvent, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { useShoppingContext } from "../../contexts/ShoppingContextProvider";
 
 interface NavBarProps {
   keyWordFindLaptops: string;
@@ -10,6 +11,7 @@ interface NavBarProps {
 
 function Navbar({ keyWordFindLaptops, setKeyWordFindLaptops }: NavBarProps) {
 
+  const {cartQty} = useShoppingContext();
   const [tempKeyWordFindLaptops, setTempKeyWordFindLaptop] = useState('');
 
   const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -24,7 +26,7 @@ function Navbar({ keyWordFindLaptops, setKeyWordFindLaptops }: NavBarProps) {
 
   return (
     // .navbar-expand{-sm|-md|-lg|-xl} for responsive collapsing and color scheme classes.
-    <section >
+    <section className="Navbar">
       {/*  NAV */}
       <nav className="container" >
 
@@ -58,12 +60,6 @@ function Navbar({ keyWordFindLaptops, setKeyWordFindLaptops }: NavBarProps) {
               </NavLink>
             </div>
 
-            <div className="nav-right-cart">
-              <NavLink to="#">
-                <i className="fa-solid fa-basket-shopping"></i><p>Giỏ hàng</p>
-              </NavLink>
-            </div>
-
             <div className="nav-right-login">
               <NavLink className="nav-link" to="/login">
                 <i className="fas fa-user fa-xl"></i><p>Đăng nhập</p>
@@ -73,6 +69,14 @@ function Navbar({ keyWordFindLaptops, setKeyWordFindLaptops }: NavBarProps) {
             <div> <NavLink className="nav-link" to="/register">
               <i className="fas fa-user fa-xl"></i><p> Đăng ký</p>
             </NavLink></div>
+
+            <div className="nav-right-cart">
+              <NavLink to="/cart">
+              <i className="fa-solid fa-cart-shopping"></i>
+              </NavLink>
+              {cartQty?<p>{cartQty}</p>:""}
+              
+            </div>
           </div>
 
         </div>

@@ -1,7 +1,7 @@
 class ScreenResolutionModel {
     private screenResolutionID: number;
     private screenResolutionName: string;
-    private colorAccuraty: string;
+    private colorAccuracy: string;
 
 
     public getScreenResolutionID(): number {
@@ -21,16 +21,16 @@ class ScreenResolutionModel {
     }
 
     public getColorAccuraty(): string {
-        return this.colorAccuraty;
+        return this.colorAccuracy;
     }
 
-    public setColorAccuraty(colorAccuraty: string): void {
-        this.colorAccuraty = colorAccuraty;
+    public setColorAccuraty(colorAccuracy: string): void {
+        this.colorAccuracy = colorAccuracy;
     }
-    constructor(screenResolutionID: number, screenResolutionName: string, colorAccuraty: string) {
+    constructor(screenResolutionID: number, screenResolutionName: string, colorAccuracy: string) {
         this.screenResolutionID = screenResolutionID
         this.screenResolutionName = screenResolutionName
-        this.colorAccuraty = colorAccuraty
+        this.colorAccuracy = colorAccuracy
     }
 }
 export default ScreenResolutionModel;

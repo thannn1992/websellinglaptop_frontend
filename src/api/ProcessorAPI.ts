@@ -7,7 +7,6 @@ async function takeProcessorOfALaptop(endpoint: string): Promise<ProcessorModel>
 
     const response = await request(endpoint);
     const responseData = response;
-    console.log("vo toi day chua")
     const result = new ProcessorModel(
         responseData.processorID,
         responseData.processorName,

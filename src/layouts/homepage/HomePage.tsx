@@ -29,7 +29,7 @@ function HomePage({ keyWordFindLaptops }: HomePagePropsInterface) {
         brandIDNumber = 0;
     }
     return (
-        <div className="marginTop0px ">
+        <div className="marginTop80px ">
             <div className="background-color-main HomePage">
                 <CategoryCarouse />
                 <Banner01/>

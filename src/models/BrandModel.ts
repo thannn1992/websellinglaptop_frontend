@@ -1,26 +1,26 @@
 class BrandModel {
-    private _brand_ID: number;
-    private _brand_Name: string;
+    private brandID: number;
+    private brandName: string;
 
-    public get_brand_ID(): number {
-        return this._brand_ID;
+    public getbrandID(): number {
+        return this.brandID;
     }
 
-    public set_brand_ID(_brand_ID: number): void {
-        this._brand_ID = _brand_ID;
+    public setbrandID(brandID: number): void {
+        this.brandID = brandID;
     }
 
-    public get_brand_Name(): string {
-        return this._brand_Name;
+    public getbrandName(): string {
+        return this.brandName;
     }
 
-    public set_brand_Name(_brand_Name: string): void {
-        this._brand_Name = _brand_Name;
+    public setbrandName(brandName: string): void {
+        this.brandName = brandName;
     }
 
-    constructor(brand_ID: number, brand_Name: string) {
-        this._brand_ID = brand_ID
-        this._brand_Name = brand_Name
+    constructor(brandID: number, brandName: string) {
+        this.brandID = brandID
+        this.brandName = brandName
     }
 
 

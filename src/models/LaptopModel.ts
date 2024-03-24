@@ -18,6 +18,8 @@ class LaptopModel {
     private webcam: string;
     private operatingSystem: string;
     private displaySize: string;
+    private coating: string;
+
 
     public getLaptopID(): number {
         return this.laptopID;
@@ -171,6 +173,16 @@ class LaptopModel {
         this.displaySize = displaySize;
     }
 
+    public getCoating(): string {
+        return this.coating;
+    }
+
+    public setCoating(coating: string): void {
+        this.coating = coating;
+    }
+
+    
+
     constructor(
         laptopID: number,
         laptopName: string,
@@ -190,7 +202,8 @@ class LaptopModel {
         upgradeAbilityDiskDrive: string,
         webcam: string,
         operatingSystem: string,
-        displaySize: string
+        displaySize: string,
+        coating: string
     ) {
         this.laptopID = laptopID
         this.laptopName = laptopName
@@ -211,6 +224,7 @@ class LaptopModel {
         this.webcam = webcam
         this.operatingSystem = operatingSystem
         this.displaySize = displaySize
+        this.coating = coating
     }
 }
 export default LaptopModel;

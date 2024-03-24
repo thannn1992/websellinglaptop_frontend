@@ -55,7 +55,7 @@ export const ReviewLaptop: React.FC<ReviewLaptopInterface> = (prop) => {
             {
                 listReviewLaptop.map(
                     (review, index) => (
-                        <div className="row">
+                        <div className="row" key={index}>
                             <div className="col-4 text-end">
                                 <p>{renderRating(review.getRating())}</p>
                             </div>

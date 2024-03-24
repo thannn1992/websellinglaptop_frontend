@@ -16,7 +16,7 @@ const Login = () => {
         fetch('http://localhost:8080/api/account/login',
             {
                 method: 'POST',
-                
+
                 headers: {
                     'content-type': 'application/json'
                 },
@@ -31,7 +31,7 @@ const Login = () => {
                 }
             ).then(
                 (data) => {
-                    const {jwt} = data;
+                    const { jwt } = data;
                     //save token in localStorage or cookie
                     localStorage.setItem('token', jwt);
                     setError('Đăng nhập thành công');
@@ -45,28 +45,45 @@ const Login = () => {
     }
 
     return (
-        <form className="container col-5 mt-4">
+        <div className="container">
+            <div className="Login_border">
+                <div className="Login_contain">
+                   
+                    <div className="Login_form_border">
 
-            <h1 className="mb-4 h3 mb-3 font-weight-normal">ĐĂNG NHẬP TÀI KHOẢN</h1>
-            <label htmlFor="inputEmail" className="sr-only">Tên đăng nhập </label>
-            <input type="username" id="username" className="form-control my-4" placeholder="Tên đăng nhập" required
-                value={username} onChange={(e) => setUserName(e.target.value)} />
-            <label className="sr-only" htmlFor="inputpasword">Mật khẩu</label>
-            <input type="password" id="password" className="form-control my-3" placeholder="Mật khẩu" required
-                value={password} onChange={(e) => setPassword(e.target.value)} />
 
-            <div className="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me" />
-                    Remember me
-                </label>
+                        <form className="Login_form">
+                        <h3 className="">ĐĂNG NHẬP TÀI KHOẢN</h3>
+                            <div className="Login_form_email">
+                                {/* <label htmlFor="inputEmail" className="">Tên đăng nhập:</label> */}
+                                <input type="username" id="username" className="" placeholder="Tên đăng nhập" required
+                                    value={username} onChange={(e) => setUserName(e.target.value)} />
+                            </div>
+
+                            <div className="Login_form_email">
+                                {/* <label className="" htmlFor="inputpasword">Mật khẩu:</label> */}
+                                <input type="password" id="password" className="" placeholder="Mật khẩu" required
+                                    value={password} onChange={(e) => setPassword(e.target.value)} />
+                            </div>
+
+                            <div className="Login_form_checkbox">
+                                <label>
+                                    <input type="checkbox" className="custom_checkbox_1" value="remember-me" />
+                                    <p>Ghi nhớ đăng nhập</p>
+                                </label>
+                            </div>
+                            <div className="Login_form_bottom">
+                                <button className="" onClick={handleLogin} type="button">
+                                    Đăng nhập
+                                </button>
+                            </div>
+                            {error && <div style={{ color: 'red', margin:'10px 0 0 0 ' }}>{error}</div>}
+
+                        </form>
+                    </div>
+                </div>
             </div>
-            <button className="btn btn-lg btn-primary btn-block my-2" onClick={handleLogin} type="button">
-                Đăng nhập
-            </button>
-            {error && <div style={{ color: 'red' }}>{error}</div>}
-
-        </form>
+        </div>
     );
 }
 export default Login;

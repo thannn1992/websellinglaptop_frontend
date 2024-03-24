@@ -88,15 +88,14 @@ function FooterItem() {
                         </div>
                     </div>
 
-                    <div className="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top">
-                        <p>&copy; 2023 Company, Inc. All rights reserved.</p>
-                        <ul className="list-unstyled d-flex">
-                            <li className="ms-3"><a className="link-body-emphasis" href="#"> <i className="fa-brands fa-twitter fa-xl"></i></a></li>
-                            <li className="ms-3"><a className="link-body-emphasis" href="#"> <i className="fab fa-instagram fa-xl"></i></a></li>
-                            <li className="ms-3"><a className="link-body-emphasis" href="#"> <i className="fab fa-facebook-f fa-xl"></i></a></li>
-                        </ul>
+                    <div className=" FooterItem-container-bottom d-flex border-top">
+                        <p>&copy; MK Company, Inc. All rights reserved.</p>
+                       
                     </div>
                 </footer>
+                <div>
+                    
+                </div>
             </div>
         </div>
     )

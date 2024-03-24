@@ -7,9 +7,19 @@ class UserModel {
     private gender: boolean;
     private email: string;
     private phoneNumber: string;
+    private birthDay: Date;
     private address: string;
     private deliveryAddress: string |undefined;
     private purchaseAddress: string | undefined;
+
+
+    public getBirthDay(): Date {
+        return this.birthDay;
+    }
+
+    public setBirthDay(birthDay: Date): void {
+        this.birthDay = birthDay;
+    }
     
 
     public getUserID(): number {
@@ -108,6 +118,7 @@ class UserModel {
         gender: boolean,
         email: string,
         phoneNumber: string,
+        birthDay:Date,
         address: string,
         deliveryAddress: string,
         purchaseAddress: string
@@ -120,6 +131,7 @@ class UserModel {
         this.gender = gender
         this.email = email
         this.phoneNumber = phoneNumber
+        this.birthDay = birthDay
         this.address = address
         this.deliveryAddress = deliveryAddress
         this.purchaseAddress = purchaseAddress

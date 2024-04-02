@@ -18,6 +18,7 @@ import { Cart } from './layouts/buyproduct/Cart';
 import { ShoppingContextProvider } from './contexts/ShoppingContextProvider';
 import PictureModel from './models/PictureModel';
 import { Order } from './layouts/buyproduct/Order';
+import LaptopBrand from './layouts/product/LaptopBrand';
 
 function App() {
 
@@ -27,14 +28,14 @@ function App() {
     <div className='Style' >
       <ShoppingContextProvider>
         <BrowserRouter>
-          <Navbar keyWordFindLaptops={keyWordFindLaptops} setKeyWordFindLaptops={setKeyWordFindLaptops} />
+          <Navbar setKeyWordFindLaptops={setKeyWordFindLaptops} />
           <Routes>
 
             <Route path='/' element={<HomePage keyWordFindLaptops={keyWordFindLaptops} />} />
             {/*:brandID  tạo ra parammeter sau đó qua HomePage dùng 
           const{brandID} = useParams() để lấy được giá trị của brandID
           LƯU Ý: Tên sau dấu : phải tương đồng không là không lấy được*/}
-            <Route path='/:brandID' element={<HomePage keyWordFindLaptops={keyWordFindLaptops} />} />
+            <Route path='/:brandID' element={<LaptopBrand />} />
             <Route path='/about' element={<About />} />
             <Route path='/laptop/:laptopID' element={<LaptopDetails />} />
             <Route path='/register' element={<RegisterUser />} />

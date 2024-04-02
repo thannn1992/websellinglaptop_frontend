@@ -1,27 +1,44 @@
 import React, { useEffect, useState } from "react";
 import LaptopModel from "../../models/LaptopModel";
-import { findBooks, takeAllLaptops } from "../../api/LaptopAPI";
+import { findBooks, findLaptopBrand, takeAllLaptops } from "../../api/LaptopAPI";
 import LaptopPropAPI from "./components/LaptopProp";
 import { Pagination } from "../utils/Pagination";
+import { useParams } from "react-router-dom";
+import BrandModel from "../../models/BrandModel";
+import { takeBrandFromID } from "../../api/BrandAPI";
 
-interface listLaptopProps {
-    keyWordFindLaptops: string;
-    brandIDNumber: number;
+interface laptopBrandInterface {
+    keyWordFindBrands: number;
 }
 
-function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
+function LaptopBrand() {
+    const { brandID } = useParams();
+    let brandIDNumber = 0;
+
+    try {
+        brandIDNumber = parseInt(brandID + '');
+
+    } catch (error) {
+        brandIDNumber = 0;
+        console.error('Error: ', error);
+    }
+    if (Number.isNaN(brandIDNumber)) {
+        brandIDNumber = 0;
+    }
 
     const [listLaptops, setListLaptops] = useState<LaptopModel[]>([]);
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
     const [informError, setInformError] = useState(null);
+
+    const[brandLaptop, setBrandLaptop] = useState<BrandModel| null>(null);
 
     const [presentPage, setPresentPage] = useState(1);
     const [totalPages, setTotalPages] = useState(0);
     const [totalLaptops, setTotalLaptops] = useState(0);
 
     useEffect(() => {
-        if (keyWordFindLaptops === '' && brandIDNumber == 0) {
-            takeAllLaptops(presentPage - 1).then(
+       
+            findLaptopBrand(brandIDNumber).then(
                 laptopData => {
                     setListLaptops(laptopData.result);
                     setTotalPages(laptopData.totalPages);
@@ -34,22 +51,12 @@ function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
                     setInformError(error.message);
                 }
             );
-        } else {
-            findBooks(keyWordFindLaptops, brandIDNumber).then(
-                laptopData => {
-                    setListLaptops(laptopData.result);
-                    setTotalPages(laptopData.totalPages);
-                    setTotalLaptops(laptopData.totalLaptops);
-
-                    setUpLoadingData(false);
+            takeBrandFromID(brandIDNumber).then(
+                brandData => {
+                    setBrandLaptop(brandData)
                 }
-            ).catch(
-                error => {
-                    setInformError(error.message);
-                }
-            );
-        }
-    }, [presentPage, keyWordFindLaptops, brandIDNumber]
+            )
+    }, [presentPage, brandIDNumber]
     )
 
     const pagination = (page: number) => {
@@ -84,13 +91,17 @@ function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
 
     return (
 
-        <div className="AllLaptops">
+        <div className="Laptops_Brand">
             <div className="container">
-
+                <div className="Laptops_Brand_Border">
+                <div className="Laptops_Brand_Infor">
+                    <h4>Laptop {brandLaptop?.getbrandName()}</h4>
+                    <h5>{brandLaptop?.getbrandDescription()}</h5>
+                </div>
+                </div>
+                
                 <div className="AllLaptops-container">
-                    <div className="SliderOutstandingLaptop-container-title">
-                        <h4>TOÀN BỘ LAPTOP</h4>
-                    </div>
+
 
                     <div className="LaptopBestSelling-container-laptop">
                         <div className="LaptopBestSelling-container-laptop-items">
@@ -119,4 +130,4 @@ function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
 
     )
 }
-export default ListLaptopAPI;
+export default LaptopBrand;

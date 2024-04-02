@@ -3,8 +3,6 @@ import { Star, StarFill, StarHalf } from "react-bootstrap-icons";
 export function renderRating(point: number) {
     const stars = [];
     for (let i = 1; i <= 5; i++) {
-
-
         if (i <= point) {
             stars.push(<StarFill className="renderRating-starfill" />)
 

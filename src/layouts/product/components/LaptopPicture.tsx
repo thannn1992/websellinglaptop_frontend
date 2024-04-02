@@ -58,7 +58,7 @@ export const LaptopPictures: React.FC<BookPicturesInterface> = (prop) => {
 
     return (
         <div className="LaptopPictureDetail">
-            <div className="LaptopPictureDetail-content d-flex">
+            <div className="LaptopPictureDetail-content">
                 <div className="LaptopPictureDetail-img-left">
                         <img src={listPicturesLaptop[0].getPictureData()} alt={`${listPicturesLaptop[0].getPictureData()}`} />
                 </div>

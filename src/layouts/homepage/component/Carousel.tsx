@@ -2,74 +2,72 @@ import React, { useEffect, useState } from "react";
 import LaptopModel from "../../../models/LaptopModel";
 import { take3NewestLaptops } from "../../../api/LaptopAPI";
 import { CarouselItem } from "./CarouselItem";
-
-
 export const Carousel: React.FC = () => {
 
     // handel button left right
     const lefttBtn = document.querySelector('.fa-angle-left');
     const rightBtn = document.querySelector('.fa-angle-right');
     const totalImg = document.querySelectorAll('.slider01-top-container img')
-    const temp = document.querySelector('.slider01-top-container') as HTMLElement
 
-    let index: number = 0;
-    rightBtn?.addEventListener("click", function () {
-        index = index + 1;
-        if (index > totalImg.length - 1) {
-            index = 0;
-        }
-        if (temp) {
-            temp.style.right = index * 100 + "%";
-        }
-    })
-
-    lefttBtn?.addEventListener("click", function () {
-        index = index - 1;
-        if (index <= 0) {
-            index = totalImg.length - 1;
-        }
-        if (temp) {
-            temp.style.right = index * 100 + "%";
-        }
-    })
-
-    // handel button dot
-    const findImg = document.querySelectorAll('.slider01-top-button img') as NodeListOf<HTMLImageElement>;
-    const totalDot = document.querySelectorAll('.dot')
-    const totalImgDot = findImg.length;
-    totalDot.forEach(function (dot, indexDot) {
-        dot.addEventListener("click", function () {
-            removeDotActive();
-            if (temp) {
-                temp.style.right = indexDot * 100 + "%";
-                dot.classList.add("dot-active");
-                index = indexDot;
-            }
-        })
-    })
-
-    function removeDotActive(){
-        let dotActive = document.querySelector('.dot-active');
-        dotActive?.classList.remove("dot-active");
-    }
-
-    //Handel auto change img
-    function slideAutoRun() {
-        index++;
-        if (index > totalImg.length - 1) {
-            index = 0;
-        }
-        if (temp) {
-            removeDotActive();
-            temp.style.right = index * 100 + "%";
-            totalDot[index].classList.add("dot-active");
-        }
-    }
-    setInterval(slideAutoRun, 4000);
-    // create useState
     const [listLaptops, setListLaptop] = useState<LaptopModel[]>([])
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
     const [informError, setInformError] = useState(null);
+    const [index, setIndex] = useState<number>(0);
+
+   
+    const totalDot = document.querySelectorAll('.dot');
+    
+
+    useEffect(() => {
+        // Quan trọng: Hàm sẽ chạy lại khi index và widthLaptop cập nhật
+        // Cách này tiện dùng hơn javascript.
+        // Các function liên quan chỉ cần cập nhật index và widthLaptop
+        const temp = document.querySelector('.slider01-top-container') as HTMLElement;
+        const handelMoveBanner = () => {
+            if (temp) {
+                temp.style.right = index * 100 + "%";
+                totalDot.forEach(function (dot, indexDot) {
+                   if(indexDot === index){
+                    removeDotActive();
+                    dot.classList.add("dot-active");
+                   }
+                })   
+            }
+        };
+        handelMoveBanner();
+    }, [index])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex(prevIndex => (prevIndex + 1) % (totalImg.length));
+        }, 3000);
+        // Hàm này chỉ thực hiện khi interval không được gọi nữa, chứ không phải chạy mỗi lần gọi
+        // Ví dụ: khi chuyển trang khác, khi handelNextButton được dùng.
+        return () => clearInterval(interval);
+    }, []);
+
+    const handelNextButton = () => {
+        setIndex(prevIndex => (prevIndex + 1) % (totalImg.length));
+    };
+
+    const handelPrevButton = () => {
+        setIndex(prevIndex => (prevIndex - 1 + (totalImg.length)) % (totalImg.length));
+    };
+
+    //Handel button dot
+    if(totalDot.length>0){
+        totalDot.forEach(function (dot, indexDot) {
+            dot.addEventListener("click", function () {
+                removeDotActive();
+                dot.classList.add("dot-active");
+                setIndex(indexDot);
+            })
+        })   
+    }
+    function removeDotActive() {
+        let dotActive = document.querySelector('.dot-active');
+        dotActive?.classList.remove("dot-active");
+    }
 
     useEffect(() => {
         take3NewestLaptops().then(
@@ -77,7 +75,6 @@ export const Carousel: React.FC = () => {
                 setListLaptop(laptopData.result);
                 setUpLoadingData(false)
             }
-
         ).catch(
             error => {
                 setInformError(error.message);
@@ -114,8 +111,8 @@ export const Carousel: React.FC = () => {
                     <a href="#"><img src={require('./../../../images/slider/slider6.jpg')} alt="" /></a>
                 </div>
                 <div className="slider01-top-btn">
-                    <i className="fa-solid fa-angle-left"></i>
-                    <i className="fa-solid fa-angle-right"></i>
+                    <i className="fa-solid fa-angle-left" onClick={() => handelPrevButton()}></i>
+                    <i className="fa-solid fa-angle-right" onClick={() => handelNextButton()}></i>
                 </div>
                 <div className="slider01-top-button">
                     <div className="dot dot-active"></div>

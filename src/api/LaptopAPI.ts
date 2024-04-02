@@ -79,6 +79,11 @@ export async function findBooks(keyWordFindBooks: string, brandID: number): Prom
     return takeLaptop(endpoint);
 }
 
+export async function findLaptopBrand(brandID: number): Promise<ResultPagingInterface> {
+    let endpoint: string = `http://localhost:8080/laptop/search/findByBrand_BrandID?brandID=${brandID}`;
+    return takeLaptop(endpoint);
+}
+
 export async function takeALaptopFromID(laptopID: number): Promise<LaptopModel | null> {
     const endpoint: string = `http://localhost:8080/laptop/${laptopID}`;
 

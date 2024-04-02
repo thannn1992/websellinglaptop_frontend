@@ -22,6 +22,7 @@ import { takeBrandofALaptop } from "../../api/BrandAPI";
 import BrandModel from "../../models/BrandModel";
 import { takeModelofALaptop } from "../../api/ModelAPI";
 import ModelModel from "../../models/ModelModel";
+import { useShoppingContext } from "../../contexts/ShoppingContextProvider";
 
 
 export function LaptopDetails() {
@@ -42,6 +43,7 @@ export function LaptopDetails() {
     }
 
     // Declare 
+    const { addCartItem } = useShoppingContext();
     const [laptop, setLaptop] = useState<LaptopModel | null>(null);
     const [isLoading, setIsLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -67,34 +69,6 @@ export function LaptopDetails() {
 
     const [informError, setInformError] = useState(null);
 
-    // const increaseQuantities = () => {
-    //     const presentQuantites = (laptop?.getLaptopQuantities() ? laptop.getLaptopQuantities() : 0);
-    //     if (quantities < presentQuantites) {
-    //         setQuantities(quantities + 1);
-    //     }
-    // }
-
-    // const decreaseQuantities = () => {
-    //     if (quantities >= 2) {
-    //         setQuantities(quantities - 1);
-    //     }
-    // }
-
-    // const handleQtyChanged = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const qtyNew = parseInt(event.target.value);
-    //     const presentQuantites = (laptop?.getLaptopQuantities() ? laptop.getLaptopQuantities() : 0);
-    //     if (!isNaN(qtyNew) && qtyNew >= 1 && qtyNew <= presentQuantites) {
-    //         setQuantities(qtyNew);
-    //     }
-    // }
-
-    // const handleBuyLaptopNow = () => {
-
-    // }
-
-    // const handleAddLaptopCart = () => {
-
-    // }
 
     useEffect(() => {
 
@@ -130,7 +104,7 @@ export function LaptopDetails() {
                 if (reviewData[0] == null) {
                     setReviewCheck("Chưa có đánh giá.");
                 } else {
-                    console.log("vo toi")
+                    
                     setTotalReviews(reviewData.length);
                     let totalscore: number = 0;
                     for (let i: number = 0; i < reviewData.length; i++) {
@@ -141,7 +115,6 @@ export function LaptopDetails() {
 
                 }
                 setReview(reviewData);
-
             }
         ).catch(
             error => {
@@ -226,7 +199,7 @@ export function LaptopDetails() {
     }
 
     return (
-        <div className="LaptopDetails marginTop80px ">
+        <div className="LaptopDetails ">
             <div className="container">
                 <div className="LaptopDetails-content">
                     <div className="LaptopDetails-content-directory-tree">
@@ -269,44 +242,19 @@ export function LaptopDetails() {
                                             </div>
 
                                             <div className="LaptopDetails-content-right-product-add">
-                                                <p ><button>Mua ngay <br/><span>(Giao nhanh từ 2 giờ hoặc nhận tại cửa hàng)</span></button> </p>
-                                                <p><button><i className="fa-solid fa-cart-plus"><br/><span>Thêm vào giỏ</span></i></button></p>
+                                                <Link to={'/cart'}>
+                                                    <p ><button onClick={() => laptop === null ? 0 : addCartItem(laptop)}>Mua ngay <br /><span>(Giao nhanh từ 2 giờ hoặc nhận tại cửa hàng)</span></button> </p>
+                                                </Link>
+                                                <p>
+
+                                                    <button onClick={() => laptop === null ? 0 : addCartItem(laptop)}>
+                                                        <i className="fa-solid fa-cart-plus"><br /><span>Thêm vào giỏ</span></i>
+                                                    </button>
+
+                                                </p>
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* <div className="col-5">
-                            <div className="row">
-                                <div className="col-8">
-                                    <h1>
-                                        { }
-                                    </h1>
-
-                                </div>
-
-                                <div className="col-4">
-                                    PHẦN ĐẶT HÀNG
-
-                                    <div className="mb-2">
-                                        Số lượng
-                                    </div>
-                                    <div className="d-flex align-items-center">
-                                        <button className="btn btn-outline-secondary me-2" onClick={decreaseQuantities}>-</button>
-                                        <input className="form-control text-center" value={quantities} min={1} onChange={handleQtyChanged}></input>
-                                        <button className="btn btn-outline-secondary ms-2" onClick={increaseQuantities}>-</button>
-                                    </div>
-                                    <div>
-                                        Số tiến tạm tính
-                                    </div>
-
-                                    <div className="d-grid gap-2">
-                                        <button type="button" className="btn btn-danger mt-3" onClick={handleBuyLaptopNow}> Mua sách ngay</button>
-                                        <button type="button" className="btn btn-outline-secondary mt-2" onClick={handleAddLaptopCart}> Thêm sách vào giỏ hàng</button>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div> */}
                                 </div>
 
                                 <div className="row mt-4 mb-4">

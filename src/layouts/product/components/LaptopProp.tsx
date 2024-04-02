@@ -11,6 +11,9 @@ import { takeAllGraphicsCardOfOneLaptop } from "../../../api/GraphicsCardAPI";
 import HardDriverModel from "../../../models/HardDriverModel";
 import { takeAllHardDriverOfOneLaptop } from "../../../api/HardDriversAPI";
 import { useShoppingContext } from "../../../contexts/ShoppingContextProvider";
+import ReviewModel from "../../../models/ReviewModel";
+import { takeAllReviewOfOneLaptop } from "../../../api/ReviewAPI";
+import { renderRating } from "../../utils/StarRating";
 
 interface LaptopPropAPIInterface {
     laptop: LaptopModel;
@@ -22,6 +25,10 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
     const listedPrice: number = props.laptop.getListedPrice();
     const sellingPrice: number = props.laptop.getSellingPrice();
     const percentDiscout = Math.round((1 - sellingPrice / listedPrice) * 100);
+    const [review, setReview] = useState<ReviewModel[]>([]);
+    const [totalReviews, setTotalReviews] = useState<number>(0);
+    const [avaragePointsReview, setAvaragePointReview] = useState<number>(0);
+    const [reviewCheck, setReviewCheck] = useState<string>();
 
     const [listPictures, setListPictures] = useState<PictureModel[]>([]);
     const [processorModels, setProcessorModels] = useState<ProcessorModel>();
@@ -29,7 +36,7 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
     const [hardDriver, setHardDriver] = useState<HardDriverModel[]>([]);
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
     const [informError, setInformError] = useState(null);
-    const {addCartItem} = useShoppingContext();
+    const { addCartItem } = useShoppingContext();
 
     useEffect(() => {
 
@@ -74,6 +81,31 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
         );
 
         setUpLoadingData(false)
+
+
+
+        takeAllReviewOfOneLaptop(laptopID).then(
+            (reviewData) => {
+                if (reviewData[0] == null) {
+                    setReviewCheck("Chưa có đánh giá.");
+                } else {
+
+                    setTotalReviews(reviewData.length);
+                    let totalscore: number = 0;
+                    for (let i: number = 0; i < reviewData.length; i++) {
+                        totalscore = totalscore + reviewData[i].getRating();
+                    }
+                    const avaragePoint = (totalscore / reviewData.length);
+                    setAvaragePointReview(avaragePoint);
+
+                }
+                setReview(reviewData);
+            }
+        ).catch(
+            error => {
+                setInformError(error.message);
+            }
+        );
 
     }, [])
 
@@ -139,9 +171,17 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
                     {/* <li><p className="handel-text-one-line">Pin: {props.laptop.getPin()}</p></li> */}
                     <li><p className="handel-text-one-line">Khối lượng: {props.laptop.getWeigh()}</p></li>
                 </div>
-                <div className="laptop-prop-container-text-addCart">
 
+                <div className="laptop-prop-container-bottom">
+                    <div className="laptop-prop-container-text-product-review">
+                        <p>{review[0] == null ? renderRating(0) : renderRating(avaragePointsReview)}   </p>
+                
+                    </div>
+                    <div className="laptop-prop-container-text-addCart">
                         <Link to={`#`} onClick={() => addCartItem(props.laptop)}> <i className="fa-solid fa-cart-plus"></i></Link>
+                    </div>
+
+
                 </div>
 
             </div>

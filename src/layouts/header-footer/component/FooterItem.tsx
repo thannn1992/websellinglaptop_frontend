@@ -5,8 +5,9 @@ function FooterItem() {
         <div className="FooterItem">
             <div className="container">
                 <footer className=" FooterItem-container">
-                    <div className="FooterItem-container-items row">
-                        <div className="FooterItem-container-item col-6 col-md-2 mb-3">
+                    <div className="FooterItem-container-items">
+
+                        <div className="FooterItem-container-item ">
                             <div className=" FooterItem-container-item-h">
                                 <h5>VỀ CHÚNG TÔI</h5>
                                 <div className=" FooterItem-container-item-h-border">
@@ -21,7 +22,7 @@ function FooterItem() {
                             </ul>
                         </div>
 
-                        <div className="FooterItem-container-item col-6 col-md-2 mb-3">
+                        <div className="FooterItem-container-item">
                             <div className=" FooterItem-container-item-h">
                                 <h5>HỖ TRỢ KHÁCH HÀNG</h5>
                                 <div className=" FooterItem-container-item-h-border">
@@ -36,7 +37,7 @@ function FooterItem() {
                             </ul>
                         </div>
 
-                        <div className="FooterItem-container-item col-6 col-md-2 mb-3">
+                        <div className="FooterItem-container-item ">
                             <div className=" FooterItem-container-item-h">
                                 <h5>CHÍNH SÁCH CHUNG</h5>
                                 <div className=" FooterItem-container-item-h-border">
@@ -51,7 +52,7 @@ function FooterItem() {
                             </ul>
                         </div>
 
-                        <div className="FooterItem-container-item col-md-6 mb-3">
+                        <div className="FooterItem-container-item ">
                             <div className="FooterItem-container-item-tt">
                                 <div className=" FooterItem-container-item-h">
                                     <h5>PHƯƠNG THỨC THANH TOÁN</h5>
@@ -60,17 +61,17 @@ function FooterItem() {
                                 </div>
                                 <div className="FooterItem-container-item-payment">
                                     <div className="FooterItem-container-item-payment-img">
-                                        <ul className="nav row">
-                                            <li className="col-md-2"><img src={require('./../../../images/payment/visa.png')} alt="" /></li>
-                                            <li className="col-md-2"><img src={require('./../../../images/payment/mastercard.png')} alt="" /></li>
-                                            <li className="col-md-2"><img src={require('./../../../images/payment/the atm.png')} alt="" /></li>
-                                            <li className="col-md-2"><img src={require('./../../../images/payment/chuyen khoan.png')} alt="" /></li>
-                                            <li className="col-md-2"><img src={require('./../../../images/payment/tiem mat.png')} alt="" /></li>
+                                        <ul className="">
+                                            <li className=""><img src={require('./../../../images/payment/visa.png')} alt="" /></li>
+                                            <li className=""><img src={require('./../../../images/payment/mastercard.png')} alt="" /></li>
+                                            <li className=""><img src={require('./../../../images/payment/the atm.png')} alt="" /></li>
+                                            <li className=""><img src={require('./../../../images/payment/chuyen khoan.png')} alt="" /></li>
+                                            <li className=""><img src={require('./../../../images/payment/tiem mat.png')} alt="" /></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                            <div>
+                            <div className="FooterItem-container-item-sub">
                                 <form>
                                     <div className=" FooterItem-container-item-h">
                                         <h5>ĐĂNG KÝ NHẬN TIN KHUYẾN MÃI</h5>
@@ -83,8 +84,6 @@ function FooterItem() {
                                     </div>
                                 </form>
                             </div>
-
-
                         </div>
                     </div>
 
@@ -93,9 +92,6 @@ function FooterItem() {
                        
                     </div>
                 </footer>
-                <div>
-                    
-                </div>
             </div>
         </div>
     )

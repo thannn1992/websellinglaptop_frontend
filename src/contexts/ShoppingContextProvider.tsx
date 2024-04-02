@@ -102,8 +102,8 @@ export const ShoppingContextProvider = ({ children }: ShoppingContextProviderPro
                             } else {
                                 return item
                             }
-                            setCartItems(newCartItems)
                         })
+                        setCartItems(newCartItems)
                     } else {
                         // const newCartItem = {...product, produceQty: 1}
 

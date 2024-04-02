@@ -47,17 +47,17 @@ export const LaptopBestSelling = () => {
             {/* Lớp này fit 2 bên ojbect 1200px */}
             <div className="container">
                 {/* Lớp này đặt vị trí relative và overflor: hidden */}
-                <div className="LaptopBestSelling-container">
-                    <div className="LaptopBestSelling-container-title">
+                <div className="SliderOutstandingLaptop-container">
+                    <div className="SliderOutstandingLaptop-container-title">
                         <h4>LAPTOP BÁN CHẠY</h4>
                     </div>
 
                     {/* Lớp này định vị trí cho toàn bộ laptop position: relative, height, transition */}
                     <div className="LaptopBestSelling-container-laptop">
-                        <div className="LaptopBestSelling-container-laptop-items d-flex flex-wrap">
+                        <div className="LaptopBestSelling-container-laptop-items">
                             {
                                 listLaptops2.map((laptop) => (
-                                    <div className="LaptopBestSelling-container-laptop-item col-md-2dot4" key={laptop.getLaptopID()}>
+                                    <div className="LaptopBestSelling-container-laptop-item" key={laptop.getLaptopID()}>
                                         <div className="laptop-prop-container">
                                             <LaptopPropAPI key={laptop.getLaptopID()} laptop={laptop} />
                                         </div>

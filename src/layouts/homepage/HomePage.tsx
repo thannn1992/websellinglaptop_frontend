@@ -9,6 +9,7 @@ import { Banner02 } from "./component/Banner02";
 import { LaptopBestSelling } from "./component/LaptopBestSelling";
 
 interface HomePagePropsInterface {
+    
     keyWordFindLaptops: string;
 }
 
@@ -29,14 +30,14 @@ function HomePage({ keyWordFindLaptops }: HomePagePropsInterface) {
         brandIDNumber = 0;
     }
     return (
-        <div className="marginTop80px ">
-            <div className="background-color-main HomePage">
+        <div className="" >
+            <div className="background-color-main">
                 <CategoryCarouse />
                 <Banner01/>
                 <SliderOutstandingLaptop/>
                 <Banner02/>
                 <LaptopBestSelling/>
-                <ListLaptopAPI keyWordFindBooks={keyWordFindLaptops} brandIDNumber={brandIDNumber} />
+                <ListLaptopAPI keyWordFindLaptops={keyWordFindLaptops} brandIDNumber={brandIDNumber} />
             </div>
         </div>
     );

@@ -8,6 +8,12 @@ export const SliderOutstandingLaptop = () => {
     const [listLaptops1, setlistLaptops1] = useState<LaptopModel[]>([]);
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
     const [informError, setInformError] = useState(null);
+    const [numberLaptopShow, setNumberLaptopShow] = useState<number>(5);
+    const [widthLaptop, setWidthLaptop] = useState<number>(20);
+    const [index, setIndex] = useState<number>(0);
+    const lefttBtn = document.querySelector('.btn-left');
+    const rightBtn = document.querySelector('.btn-right');
+    const totalLaptop = document.querySelectorAll('.SliderOutstandingLaptop-container-laptop-item');
 
     useEffect(() => {
         take8MostExLaptop().then(
@@ -21,48 +27,65 @@ export const SliderOutstandingLaptop = () => {
             }
         );
     }, []
-    )
+    );
 
-    // handel button left right
-    const lefttBtn = document.querySelector('.btn-left');
-    const rightBtn = document.querySelector('.btn-right');
-    const totalLaptop = document.querySelectorAll('.SliderOutstandingLaptop-container-laptop-item');
-    const temp = document.querySelector('.SliderOutstandingLaptop-container-laptop-items') as HTMLElement;
-   
-    let index: number = 0;
-    rightBtn?.addEventListener("click", function () {
-       
-        index = index + 1;
-        if (index > totalLaptop.length - 5) {
-            index = 0;
-        }
-        if (temp) {
-            temp.style.right = index *20 + "%";
-        }
-    })
+    useEffect(() => {
+        const handelResize = () => {
 
-    lefttBtn?.addEventListener("click", function () {
-        index = index-1;
-        if (index < 0) {
-            index = totalLaptop.length - 5;
-        }
-        if (temp) {
-            temp.style.right = index * 20 + "%";
-        }
-    })
+            if (window.innerWidth >= 1000) {
+                setNumberLaptopShow(5);
+                setWidthLaptop(20);
+            }
+            else if (window.innerWidth < 1000 && window.innerWidth >=850) {
+                setNumberLaptopShow(4);
+                setWidthLaptop(25);
+            }
+            else if (window.innerWidth < 850 && window.innerWidth >=650 ){
+                setNumberLaptopShow(3);
+                setWidthLaptop(33);
+            } else if (window.innerWidth < 650 ){
+                setNumberLaptopShow(2);
+                setWidthLaptop(50);
+            }
+        };
+        window.addEventListener('resize', handelResize);
 
-    //Handel auto change img
+        handelResize();
 
-    function slideAutoRun() {
-        index = index + 1;
-        if (index > totalLaptop.length - 5) {
-            index = 0;
-        }   
-        if(temp){
-            temp.style.right = index * 20 + "%";
-        } 
-    }
-    setInterval(slideAutoRun, 3000);
+        return () => {
+            window.removeEventListener('resize', handelResize);
+        }
+    }, []);
+
+    useEffect(() => {
+        // Quan trọng: Hàm sẽ chạy lại khi index và widthLaptop cập nhật
+        // Cách này tiện dùng hơn javascript.
+        // Các function liên quan chỉ cần cập nhật index và widthLaptop
+        const temp = document.querySelector('.SliderOutstandingLaptop-container-laptop-items') as HTMLElement;
+        const handelMoveBanner = () => {
+            if (temp) {
+                temp.style.right = index * widthLaptop + "%";
+            }
+        };
+        handelMoveBanner();
+    }, [index, widthLaptop])
+
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setIndex(prevIndex => (prevIndex + 1) % (listLaptops1.length - numberLaptopShow +1));
+        }, 3000);
+        // Hàm này chỉ thực hiện khi interval không được gọi nữa, chứ không phải chạy mỗi lần gọi
+        // Ví dụ: khi chuyển trang khác, khi handelNextButton được dùng.
+        return () => clearInterval(interval);
+    }, []);
+
+    const handelNextButton = () => {
+        setIndex(prevIndex => (prevIndex + 1) % (listLaptops1.length - numberLaptopShow + 1));
+    };
+
+    const handelPrevButton = () => {
+        setIndex(prevIndex => (prevIndex - 1 + (listLaptops1.length - numberLaptopShow + 1)) % (listLaptops1.length - numberLaptopShow + 1));
+    };
 
     if (upLoadingData) {
         return (
@@ -106,8 +129,8 @@ export const SliderOutstandingLaptop = () => {
                             }
                         </div>
                         <div className="slider02-top-btn">
-                            <i className="fa-solid fa-angle-left btn-left"></i>
-                            <i className="fa-solid fa-angle-right btn-right"></i>
+                            <i className="fa-solid fa-angle-left btn-left" onClick={handelPrevButton}></i>
+                            <i className="fa-solid fa-angle-right btn-right" onClick={handelNextButton}></i>
                         </div>
                     </div>
                 </div>

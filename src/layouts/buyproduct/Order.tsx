@@ -62,7 +62,6 @@ export const Order = () => {
                 setInformError(error.message);
             }
         );
-
     }
 
     const handleDistrictChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {

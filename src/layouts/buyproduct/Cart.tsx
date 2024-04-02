@@ -6,9 +6,6 @@ import { takeAllPictureOfOneLaptop } from "../../api/PictureAPI";
 import { formatNumber } from "../utils/FormatNumber";
 import { Link } from "react-router-dom";
 
-
-
-
 export const Cart = () => {
 
     const { increaseQty, decreaseQty, removeCartItem, cartItems, totalPrice, clearCart, cartQty } = useShoppingContext();
@@ -35,7 +32,7 @@ export const Cart = () => {
                                     <div className="cart-top-wrap-item cart-top-wrap-item-active">
 
                                     </div>
-                                    <div className="cart-top-wrap-item cart-top-wrap-item-active">
+                                    <div className="cart-top-wrap-item ">
 
                                     </div>
                                     <div className="cart-top-wrap-item">
@@ -45,8 +42,7 @@ export const Cart = () => {
 
                                     </div>
                                 </div>
-                                <div className="cart-top-wrap-active1 ">
-                                </div>
+                                
 
                                 <div className="cart-top-text">
                                     <div className="cart-top-text-item">

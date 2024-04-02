@@ -20,7 +20,6 @@ class UserModel {
     public setBirthDay(birthDay: Date): void {
         this.birthDay = birthDay;
     }
-    
 
     public getUserID(): number {
         return this.userID;

@@ -6,7 +6,7 @@ import Navbar from './layouts/header-footer/Navbar';
 
 import HomePage from './layouts/homepage/HomePage';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import About from './layouts/about/About';
+import About from './layouts/company-infor/About';
 import { LaptopDetails } from './layouts/product/LaptopDetails';
 import { RegisterUser } from './layouts/user/RegisterUser';
 import { ActivateAccount } from './layouts/user/ActiveAccount';
@@ -19,6 +19,9 @@ import { ShoppingContextProvider } from './contexts/ShoppingContextProvider';
 import PictureModel from './models/PictureModel';
 import { Order } from './layouts/buyproduct/Order';
 import LaptopBrand from './layouts/product/LaptopBrand';
+import { Address } from './layouts/company-infor/address';
+import ModelModel from './models/ModelModel';
+import { LaptopModelName } from './layouts/product/components/LaptopModelName';
 
 function App() {
 
@@ -45,6 +48,8 @@ function App() {
             <Route path='/inform-error-403' element={<InformError403 />} />
             <Route path='/cart' element={<Cart />} />
             <Route path='/order' element={<Order/>}/>
+            <Route path='/address' element={<Address/>} />
+            <Route path='/model/:modelID' element={<LaptopModelName/>} />
           </Routes>
 
           <Footer />

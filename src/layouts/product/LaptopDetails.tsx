@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import LaptopModel from "../../models/LaptopModel";
 import { takeALaptopFromID } from "../../api/LaptopAPI";
@@ -56,7 +56,7 @@ export function LaptopDetails() {
     const listedPrice: number = laptop == null ? 0 : laptop.getListedPrice();
     const sellingPrice: number = laptop == null ? 0 : laptop.getSellingPrice();
     const percentDiscout = Math.round((1 - sellingPrice / listedPrice) * 100);
-
+    const [topPosition, setTopPosition] = useState<number> (172);
 
     const [listPictures, setListPictures] = useState<PictureModel[]>([]);
     const [processorModels, setProcessorModels] = useState<ProcessorModel>();
@@ -68,6 +68,49 @@ export function LaptopDetails() {
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
 
     const [informError, setInformError] = useState(null);
+
+    const[firstDivWitdh, setFirstDivWidth] = useState<number> (0);
+    
+    const laptopDetailsRef = useRef<HTMLDListElement | null> (null);
+
+
+    useEffect(()=>{
+        const handelResize = () =>{
+            const firstDivWidth = document.getElementById('firstDiv');
+            if(firstDivWidth){
+                    setFirstDivWidth(firstDivWidth.offsetWidth/2.045);
+            }
+        }
+
+        handelResize();
+
+        window.addEventListener('resize', handelResize);
+        return () => {
+            window.removeEventListener('resize', handelResize);
+        }
+    },[])
+
+
+    useEffect(()=>{
+        const handleScroll = () =>{
+            if(laptopDetailsRef.current){
+                const laptopDetailsTop = laptopDetailsRef.current.getBoundingClientRect().top;
+                
+                if(laptopDetailsTop <= 0){
+                    setTopPosition(60);
+                   
+                }else{
+                    setTopPosition(172);
+                   
+                }
+            } 
+        }
+        window.addEventListener('scroll', handleScroll);
+
+        return() => {
+            window.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
 
 
     useEffect(() => {
@@ -104,7 +147,7 @@ export function LaptopDetails() {
                 if (reviewData[0] == null) {
                     setReviewCheck("Chưa có đánh giá.");
                 } else {
-                    
+
                     setTotalReviews(reviewData.length);
                     let totalscore: number = 0;
                     for (let i: number = 0; i < reviewData.length; i++) {
@@ -202,7 +245,7 @@ export function LaptopDetails() {
         <div className="LaptopDetails ">
             <div className="container">
                 <div className="LaptopDetails-content">
-                    <div className="LaptopDetails-content-directory-tree">
+                    <div className="LaptopDetails-content-directory-tree" >
                         <p><Link to="/"> <i className="fa-solid fa-house"></i>   </Link>   </p>
                         <p> <i className="fa-solid fa-angle-right">   </i>   </p>
                         <p><Link to={`/${brand?.getbrandID()}`}>{brand?.getbrandName()}</Link> </p>
@@ -211,10 +254,10 @@ export function LaptopDetails() {
 
                     </div>
                     <div className="LaptopDetails-content-top ">
-                        <div className="LaptopDetails-content-left">
+                        <div className="LaptopDetails-content-left" id="firstDiv" ref={laptopDetailsRef as React.RefObject<HTMLDivElement>}>
                             <LaptopPictures laptopID={laptopIDNumber} />
                         </div>
-                        <div className="LaptopDetails-content-right">
+                        <div   className={`LaptopDetails-content-right ${topPosition === 60?'top60':'top172'}`} style={{width: firstDivWitdh}} >
                             <div className="LaptopDetails-content-right-border">
                                 <div className="LaptopDetails-content-right-product-name">
                                     <p>{laptop?.getLaptopName()}</p>
@@ -242,192 +285,198 @@ export function LaptopDetails() {
                                             </div>
 
                                             <div className="LaptopDetails-content-right-product-add">
-                                                <Link to={'/cart'}>
-                                                    <p ><button onClick={() => laptop === null ? 0 : addCartItem(laptop)}>Mua ngay <br /><span>(Giao nhanh từ 2 giờ hoặc nhận tại cửa hàng)</span></button> </p>
-                                                </Link>
-                                                <p>
+                                                <div className="LaptopDetails-content-right-product-add-btn1">
+                                                    <Link to={'/cart'}>
+                                                        <p ><button onClick={() => laptop === null ? 0 : addCartItem(laptop)}>Mua ngay <br /><span>(Giao nhanh từ 2 giờ hoặc nhận tại cửa hàng)</span></button> </p>
+                                                    </Link>
+                                                </div>
 
-                                                    <button onClick={() => laptop === null ? 0 : addCartItem(laptop)}>
-                                                        <i className="fa-solid fa-cart-plus"><br /><span>Thêm vào giỏ</span></i>
-                                                    </button>
-
-                                                </p>
+                                                <div className="LaptopDetails-content-right-product-add-btn2">
+                                                    <p>
+                                                        <button onClick={() => laptop === null ? 0 : addCartItem(laptop)}>
+                                                            <i className="fa-solid fa-cart-plus"><br /><span>Thêm vào giỏ</span></i>
+                                                        </button>
+                                                    </p>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div className="row mt-4 mb-4">
-                                    <ReviewLaptop laptopID={laptopIDNumber} />
-                                </div>
                             </div>
                         </div>
                     </div>
+                    <div className="LaptopDetails-content-bottom-border">
+                        <div className="LaptopDetails-content-bottom">
+                            <div className="LaptopDetails-content-bottom-config">
+                                <div className="LaptopDetails-content-bottom-config-top">
+                                    <h5>
+                                        Cấu hình laptop
+                                    </h5>
+                                    {/* <a href="#">Xem cấu hình chi tiết</a> */}
+                                </div>
+                                <div className="LaptopDetails-content-bottom-config-bottom">
+                                    <table className="LaptopDetails-content-bottom-config-bottom-table">
+                                        <tbody>
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Bộ xử lý
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Loại CPU: </td>
+                                                <td> {processorModels && processorModels.getProcessorName()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tốc độ: </td>
+                                                <td>{processorModels && processorModels.getMaxTurboFrequency()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Bộ nhớ đệm: </td>
+                                                <td>{processorModels && processorModels.getCache()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Card đồ họa
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Card onboard: </td>
+                                                <td>{graphicsCard[0] && graphicsCard[0].getGraphicsCardName()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Card rời: </td>
+                                                <td>{graphicsCard[1] == null ? "Không có" : graphicsCard[1].getGraphicsCardName()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    RAM
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dung lượng RAM: </td>
+                                                <td>{laptop?.getRandomMemory()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>RAM hỗ trợ tối đa: </td>
+                                                <td>{laptop?.getUpgradeAbilityRAM()}</td>
+                                            </tr>
 
-                    <div className="LaptopDetails-content-bottom">
-                        <div className="LaptopDetails-content-bottom-config">
-                            <div className="LaptopDetails-content-bottom-config-top">
-                                <h5>
-                                    Cấu hình laptop
-                                </h5>
-                                {/* <a href="#">Xem cấu hình chi tiết</a> */}
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Ổ cứng
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Dung lượng SSD: </td>
+                                                <td>{hardDriver[0] && hardDriver[0].getHardDriverName()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Khả năng nâng cấp: </td>
+                                                <td>{laptop?.getUpgradeAbilityDiskDrive()}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Màn hình
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Màn hình: </td>
+                                                <td>{laptop?.getDisplaySize()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Tấm phủ màn hình: </td>
+                                                <td>{laptop?.getCoating()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Thông số khác: </td>
+                                                <td>{screenResolution?.getScreenResolutionName()}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Khối lượng, kích thước và màu sắc
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Khối lượng: </td>
+                                                <td>{laptop?.getWeigh()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kích thước: </td>
+                                                <td>{laptop?.getDimension()}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Màu sắc: </td>
+                                                <td>{laptop?.getColour()}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Pin
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Dung lượng pin: </td>
+                                                <td>{laptop?.getPin()}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Webcam và âm thanh
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Webcam và âm thanh: </td>
+                                                <td>{laptop?.getWebcam()}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Cổng kết nối
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Cổng kết nối: </td>
+                                                <td>{laptop?.getPort()}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Kết nối
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>Bluetooth: </td>
+                                                <td>{laptop?.getBluetooth()}</td>
+                                            </tr>
+
+                                            <tr>
+                                                <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
+                                                    Hệ điều hành
+                                                </td>
+                                            </tr>
+
+                                            <tr>
+                                                <td>OS </td>
+                                                <td>{laptop?.getOperatingSystem()}</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
                             </div>
-                            <div className="LaptopDetails-content-bottom-config-bottom">
-                                <table className="LaptopDetails-content-bottom-config-bottom-table">
-                                    <tbody>
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Bộ xử lý
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Loại CPU: </td>
-                                            <td> {processorModels && processorModels.getProcessorName()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tốc độ: </td>
-                                            <td>{processorModels && processorModels.getMaxTurboFrequency()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Bộ nhớ đệm: </td>
-                                            <td>{processorModels && processorModels.getCache()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Card đồ họa
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Card onboard: </td>
-                                            <td>{graphicsCard[0] && graphicsCard[0].getGraphicsCardName()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Card rời: </td>
-                                            <td>{graphicsCard[1] == null ? "Không có" : graphicsCard[1].getGraphicsCardName()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                RAM
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dung lượng RAM: </td>
-                                            <td>{laptop?.getRandomMemory()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>RAM hỗ trợ tối đa: </td>
-                                            <td>{laptop?.getUpgradeAbilityRAM()}</td>
-                                        </tr>
 
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Ổ cứng
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Dung lượng SSD: </td>
-                                            <td>{hardDriver[0] && hardDriver[0].getHardDriverName()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Khả năng nâng cấp: </td>
-                                            <td>{laptop?.getUpgradeAbilityDiskDrive()}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Màn hình
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Màn hình: </td>
-                                            <td>{laptop?.getDisplaySize()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Tấm phủ màn hình: </td>
-                                            <td>{laptop?.getCoating()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Thông số khác: </td>
-                                            <td>{screenResolution?.getScreenResolutionName()}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Khối lượng, kích thước và màu sắc
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Khối lượng: </td>
-                                            <td>{laptop?.getWeigh()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Kích thước: </td>
-                                            <td>{laptop?.getDimension()}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Màu sắc: </td>
-                                            <td>{laptop?.getColour()}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Pin
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Dung lượng pin: </td>
-                                            <td>{laptop?.getPin()}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Webcam và âm thanh
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Webcam và âm thanh: </td>
-                                            <td>{laptop?.getWebcam()}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Cổng kết nối
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Cổng kết nối: </td>
-                                            <td>{laptop?.getPort()}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Kết nối
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Bluetooth: </td>
-                                            <td>{laptop?.getBluetooth()}</td>
-                                        </tr>
-
-                                        <tr>
-                                            <td colSpan={2} className="LaptopDetails-content-bottom-config-bottom-item">
-                                                Hệ điều hành
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>OS </td>
-                                            <td>{laptop?.getOperatingSystem()}</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-
+                        </div>
+                    </div>
+                    <div className="LaptopDetails-content-bottom-review">
+                        <div className="LaptopDetails-content-bottom-review-border">
+                            <ReviewLaptop laptopID={laptopIDNumber} />
                         </div>
                     </div>
                 </div>

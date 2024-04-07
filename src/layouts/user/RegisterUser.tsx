@@ -73,7 +73,7 @@ export function RegisterUser() {
     const handleDistrictChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedDistrictID = e.target.value;
         listDistricts.map((district) => {
-            if(district.getCode() === e.target.value){
+            if (district.getCode() === e.target.value) {
                 setDistrictUser(district.getName());
             }
         })
@@ -262,213 +262,213 @@ export function RegisterUser() {
         let houseNumber = e.target.value;
         setAddress(houseNumber + ', ' + wardUser + ', ' + districtUser + ', ' + provinceUser);
     }
-
-
     return (
-        <div className="container">
-            <div className="register_user">
-                <h3 className="text-center">ĐĂNG KÝ TÀI KHOẢN MK </h3>
-                <div className="register_user_border">
-                    <div className="register_user_container">
-                        <form onSubmit={handelSubmitRegiser} className="register_user_form">
-                            <div className="register_user_form_user" >
-                                <h5>Thông tin đăng nhập</h5>
-                                <div className="register_user_form_user_border">
-                                    <div className="register_user_form_item">
-                                        <label htmlFor="userName" className="">Tên đăng nhập:</label>
-                                        <input
-                                            type="text"
-                                            id="userName"
-                                            className=""
-                                            value={userName}
-                                            onChange={handleInputUserNameChanged}
-                                            placeholder="Tên đăng nhập..."
-                                        />
-                                        <div className="register_error">{errorUserName}</div>
-                                    </div>
-                                    <div className="register_user_form_item">
-                                        <label htmlFor="password" className="">Mật khẩu:</label>
-                                        <input
-                                            type="password"
-                                            id="passWord"
-                                            className=""
-                                            value={passWord}
-                                            onChange={handelInputPasswordChanged}
-                                            placeholder="Mật khẩu..."
-                                        />
-                                        <div className="register_error">{errorPassWord}</div>
-                                    </div>
-                                    <div className="register_user_form_item">
-                                        <label htmlFor="passwordRepeat" className="">Nhập lại mật khẩu</label>
-                                        <input
-                                            type="password"
-                                            id="repeatPassWord"
-                                            className=""
-                                            value={passWordRepeat}
-                                            onChange={handelInputCheckingPasswordRepeatChanged}
-                                            placeholder="Nhập lại mật khẩu"
-                                        />
-                                        <div className="register_error" >
-                                            {errorRepeatPassWord}
+        <div className="register_background_colour">
+            <div className="container">
+                <div className="register_user">
+                    <h3 className="text-center">ĐĂNG KÝ TÀI KHOẢN MK </h3>
+                    <div className="register_user_border">
+                        <div className="register_user_container">
+                            <form onSubmit={handelSubmitRegiser} className="register_user_form">
+                                <div className="register_user_form_user" >
+                                    <h5>Thông tin đăng nhập</h5>
+                                    <div className="register_user_form_user_border">
+                                        <div className="register_user_form_item">
+                                            <label htmlFor="userName" className="">Tên đăng nhập:</label>
+                                            <input
+                                                type="text"
+                                                id="userName"
+                                                className=""
+                                                value={userName}
+                                                onChange={handleInputUserNameChanged}
+                                                placeholder="Tên đăng nhập..."
+                                            />
+                                            <div className="register_error">{errorUserName}</div>
+                                        </div>
+                                        <div className="register_user_form_item">
+                                            <label htmlFor="password" className="">Mật khẩu:</label>
+                                            <input
+                                                type="password"
+                                                id="passWord"
+                                                className=""
+                                                value={passWord}
+                                                onChange={handelInputPasswordChanged}
+                                                placeholder="Mật khẩu..."
+                                            />
+                                            <div className="register_error">{errorPassWord}</div>
+                                        </div>
+                                        <div className="register_user_form_item">
+                                            <label htmlFor="passwordRepeat" className="">Nhập lại mật khẩu</label>
+                                            <input
+                                                type="password"
+                                                id="repeatPassWord"
+                                                className=""
+                                                value={passWordRepeat}
+                                                onChange={handelInputCheckingPasswordRepeatChanged}
+                                                placeholder="Nhập lại mật khẩu"
+                                            />
+                                            <div className="register_error" >
+                                                {errorRepeatPassWord}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div className="register_user_form_infor">
-                                <h5>Thông tin khách hàng</h5>
-                                <div className="register_user_form_infor_border">
+                                <div className="register_user_form_infor">
+                                    <h5>Thông tin khách hàng</h5>
+                                    <div className="register_user_form_infor_border">
 
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="lastname" className="">Họ và tên đệm: </label>
-                                        <input
-                                            type="text"
-                                            id="lastName"
-                                            className=""
-                                            value={lastName}
-                                            onChange={(e) => setLatName(e.target.value)}
-                                            placeholder="Họ và tên đệm"
-                                        />
-                                    </div>
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="lastname" className="">Họ và tên đệm: </label>
+                                            <input
+                                                type="text"
+                                                id="lastName"
+                                                className=""
+                                                value={lastName}
+                                                onChange={(e) => setLatName(e.target.value)}
+                                                placeholder="Họ và tên đệm"
+                                            />
+                                        </div>
 
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="firstName" className="">Tên: </label>
-                                        <input
-                                            type="text"
-                                            id="firstName"
-                                            className=""
-                                            value={firstName}
-                                            onChange={(e) => setFirstName(e.target.value)}
-                                            placeholder="Tên..."
-                                        />
-                                    </div>
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="email" className="">Email: </label>
-                                        <input
-                                            type="text"
-                                            id="email"
-                                            className=""
-                                            value={email}
-                                            onChange={handelInputEmailchanged}
-                                            placeholder="Email..."
-                                        />
-                                        <div className="register_error" >
-                                            {errorEmail}
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="firstName" className="">Tên: </label>
+                                            <input
+                                                type="text"
+                                                id="firstName"
+                                                className=""
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)}
+                                                placeholder="Tên..."
+                                            />
+                                        </div>
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="email" className="">Email: </label>
+                                            <input
+                                                type="text"
+                                                id="email"
+                                                className=""
+                                                value={email}
+                                                onChange={handelInputEmailchanged}
+                                                placeholder="Email..."
+                                            />
+                                            <div className="register_error" >
+                                                {errorEmail}
+                                            </div>
+                                        </div>
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="phoneNumber" className="">Số điện thoại: </label>
+                                            <input
+                                                type="text"
+                                                id="phoneNumber"
+                                                className=""
+                                                value={phoneNumber}
+                                                onChange={(e) => setPhoneNumber(e.target.value)}
+                                                placeholder="Số điện thoại..."
+                                            />
+                                        </div>
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="gender" className="">Giới tính: </label>
+                                            <select onChange={(e) => {
+                                                handleGenderChange(e);
+                                            }} >
+                                                <option value="0" ><span>Nam</span> </option>
+                                                <option value="1" ><span>Nữ</span> </option>
+                                                <option value="2"><span>Khác</span> </option>
+                                            </select>
+
+                                        </div>
+
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="birthDay" className="">Ngày sinh:</label>
+                                            <input
+                                                type="date"
+                                                id="birthDay"
+                                                className=""
+                                                //                                             The .toISOString() method converts a Date object to a string in the ISO format, which includes the date and time information separated by the letter 'T'. For example, the ISO string for a date like "2022-09-15" would be "2022-09-15T00:00:00.000Z".
+
+                                                // In the code snippet provided earlier, .split('T')[0] is used to extract only the date part from the ISO string. Let me break it down for better understanding:
+
+                                                // birthDay.toISOString(): Converts the Date object birthDay to an ISO string format.
+                                                // .split('T'): Splits the ISO string using the letter 'T' as the separator. This will create an array with two elements - the date part before 'T' and the time part after 'T'.
+                                                // [0]: Accesses the first element of the array, which corresponds to the date part before 'T'.
+                                                // So, when we use birthDay.toISOString().split('T')[0], we are converting the Date object to an ISO string and then extracting only the date part without the time information.
+
+                                                // If birthDay is undefined, we use '' (empty string) as the value for the input field, ensuring that the input remains empty when birthDay is not set.
+                                                //                                             
+                                                value={birthDay ? birthDay.toISOString().split('T')[0] : ''}
+                                                onChange={(e) => setBirthDay(new Date(e.target.value))}
+                                                placeholder="Ngày sinh..."
+                                            />
+                                        </div>
+                                        <div className="register_user_form_item_2">
+                                            <label htmlFor="avatar" className="">Hình đại diện: </label>
+                                            <input
+                                                type="file"
+                                                id="avatar"
+                                                className=""
+                                                accept="image/*"
+                                                onChange={handelAvatarChange}
+                                            />
+                                            <label htmlFor="avatar" className="custom_file_upload"><span>Chọn file...</span>
+                                                <p className="register_user_form_item_file_name" id="file-name"></p>
+                                            </label>
+
+                                        </div>
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="province" className="">Tỉnh/ Thành phố: </label>
+                                            <select onChange={(e) => {
+                                                handleProvinceChanged(e);
+                                            }} >
+                                                <option value="province"><p>Chọn Tỉnh, Thành phố</p> </option>
+                                                {listProvinces.map((province) => (
+                                                    <option value={province.getCode()}><span>{province.getName()}</span> </option>
+                                                ))
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div className="register_user_form_item_1">
+                                            <label htmlFor="district" className="">Quận/ Huyện: </label>
+                                            <select onChange={(e) => {
+                                                handleDistrictChanged(e);
+                                            }}>
+                                                <option value="district"><p>Chọn Quận, Huyện</p> </option>
+                                                {listDistricts.map((districts) => (
+                                                    <option value={districts.getCode()} ><span>{districts.getName()}</span> </option>
+                                                ))
+                                                }
+                                            </select>
+                                        </div>
+
+                                        <div className="register_user_form_item_2">
+                                            <label htmlFor="district" className="">Phường/ Xã: </label>
+                                            <select onChange={(e) => {
+                                                setWardUser(e.target.value);
+                                            }}>
+                                                <option value="ward"> Chọn Phường, Xã</option>
+                                                {listWards.map((ward) => (
+                                                    <option value={ward.getName()} ><span>{ward.getName()}</span> </option>
+                                                ))
+                                                }
+                                            </select>
+                                        </div>
+                                        <div className="register_user_form_item_2">
+                                            <label htmlFor="district" className="">Số nhà, tên đường: </label>
+                                            <input type="text" onChange={(e) => {
+                                                handleAddressChange(e);
+                                            }} placeholder="Số nhà, tên đường" />
                                         </div>
                                     </div>
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="phoneNumber" className="">Số điện thoại: </label>
-                                        <input
-                                            type="text"
-                                            id="phoneNumber"
-                                            className=""
-                                            value={phoneNumber}
-                                            onChange={(e) => setPhoneNumber(e.target.value)}
-                                            placeholder="Số điện thoại..."
-                                        />
-                                    </div>
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="gender" className="">Giới tính: </label>
-                                        <select onChange={(e) => {
-                                            handleGenderChange(e);
-                                        }} >
-                                            <option value="0" ><span>Nam</span> </option>
-                                            <option value="1" ><span>Nữ</span> </option>
-                                            <option value="2"><span>Khác</span> </option>
-                                        </select>
 
-                                    </div>
-
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="birthDay" className="">Ngày sinh:</label>
-                                        <input
-                                            type="date"
-                                            id="birthDay"
-                                            className=""
-                                            //                                             The .toISOString() method converts a Date object to a string in the ISO format, which includes the date and time information separated by the letter 'T'. For example, the ISO string for a date like "2022-09-15" would be "2022-09-15T00:00:00.000Z".
-
-                                            // In the code snippet provided earlier, .split('T')[0] is used to extract only the date part from the ISO string. Let me break it down for better understanding:
-
-                                            // birthDay.toISOString(): Converts the Date object birthDay to an ISO string format.
-                                            // .split('T'): Splits the ISO string using the letter 'T' as the separator. This will create an array with two elements - the date part before 'T' and the time part after 'T'.
-                                            // [0]: Accesses the first element of the array, which corresponds to the date part before 'T'.
-                                            // So, when we use birthDay.toISOString().split('T')[0], we are converting the Date object to an ISO string and then extracting only the date part without the time information.
-
-                                            // If birthDay is undefined, we use '' (empty string) as the value for the input field, ensuring that the input remains empty when birthDay is not set.
-                                            //                                             
-                                            value={birthDay ? birthDay.toISOString().split('T')[0] : ''}
-                                            onChange={(e) => setBirthDay(new Date(e.target.value))}
-                                            placeholder="Ngày sinh..."
-                                        />
-                                    </div>
-                                    <div className="register_user_form_item_2">
-                                        <label htmlFor="avatar" className="">Hình đại diện: </label>
-                                        <input
-                                            type="file"
-                                            id="avatar"
-                                            className=""
-                                            accept="image/*"
-                                            onChange={handelAvatarChange}
-                                        />
-                                        <label htmlFor="avatar" className="custom_file_upload"><span>Chọn file...</span>
-                                            <p className="register_user_form_item_file_name" id="file-name"></p>
-                                        </label>
-
-                                    </div>
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="province" className="">Tỉnh/ Thành phố: </label>
-                                        <select onChange={(e) => {
-                                            handleProvinceChanged(e);
-                                        }} >
-                                            <option value="province"><p>Chọn Tỉnh, Thành phố</p> </option>
-                                            {listProvinces.map((province) => (
-                                                <option value={province.getCode()}><span>{province.getName()}</span> </option>
-                                            ))
-                                            }
-                                        </select>
-                                    </div>
-
-                                    <div className="register_user_form_item_1">
-                                        <label htmlFor="district" className="">Quận/ Huyện: </label>
-                                        <select onChange={(e) => {
-                                            handleDistrictChanged(e);
-                                        }}>
-                                            <option value="district"><p>Chọn Quận, Huyện</p> </option>
-                                            {listDistricts.map((districts) => (
-                                                <option value={districts.getCode()} ><span>{districts.getName()}</span> </option>
-                                            ))
-                                            }
-                                        </select>
-                                    </div>
-
-                                    <div className="register_user_form_item_2">
-                                        <label htmlFor="district" className="">Phường/ Xã: </label>
-                                        <select onChange={(e) => {
-                                            setWardUser(e.target.value);
-                                        }}>
-                                            <option value="ward"> Chọn Phường, Xã</option>
-                                            {listWards.map((ward) => (
-                                                <option value={ward.getName()} ><span>{ward.getName()}</span> </option>
-                                            ))
-                                            }
-                                        </select>
-                                    </div>
-                                    <div className="register_user_form_item_2">
-                                        <label htmlFor="district" className="">Số nhà, tên đường: </label>
-                                        <input type="text" onChange={(e) => {
-                                            handleAddressChange(e);
-                                        }} placeholder="Số nhà, tên đường" />
+                                    <div className="register_user_form_infor_button">
+                                        <button type="submit" className="">
+                                            <h5> Đăng ký bằng Email</h5>
+                                        </button>
+                                        <div className="register_error">{inform}</div>
                                     </div>
                                 </div>
-
-                                <div className="register_user_form_infor_button">
-                                    <button type="submit" className="">
-                                        <h5> Đăng ký bằng Email</h5>
-                                    </button>
-                                    <div className="register_error">{inform}</div>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

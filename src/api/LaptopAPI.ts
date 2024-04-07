@@ -84,6 +84,11 @@ export async function findLaptopBrand(brandID: number): Promise<ResultPagingInte
     return takeLaptop(endpoint);
 }
 
+export async function findLaptopByModel(modelID: number): Promise<ResultPagingInterface> {
+    let endpoint: string = `http://localhost:8080/laptop/search/findByModel_ModelID?modelID=${modelID}`;
+    return takeLaptop(endpoint);
+}
+
 export async function takeALaptopFromID(laptopID: number): Promise<LaptopModel | null> {
     const endpoint: string = `http://localhost:8080/laptop/${laptopID}`;
 

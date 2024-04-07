@@ -2,6 +2,12 @@ import { log } from "console";
 import React, { ChangeEvent, useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useShoppingContext } from "../../contexts/ShoppingContextProvider";
+import { formatNumber } from "../utils/FormatNumber";
+import { takeAllModelofABrand } from "../../api/ModelAPI";
+import ModelModel from "../../models/ModelModel";
+import BrandModel from "../../models/BrandModel";
+import { takeAllBrand } from "../../api/BrandAPI";
+import { LaptopModelNameProp } from "./component/LaptopModelNameProp";
 
 interface NavBarProps {
   setKeyWordFindLaptops: (keyWord: string) => void;
@@ -9,10 +15,13 @@ interface NavBarProps {
 
 function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
   const [topPosition, setTopPosition] = useState<number>(70);
-  const { cartQty } = useShoppingContext();
   const [tempKeyWordFindLaptops, setTempKeyWordFindLaptop] = useState('');
   const [firstDivWidth, setFirstDivWidth] = useState<number>(0);
+  const laptopDetailsRef = useRef<HTMLDListElement | null>(null);
+  const [listBrand, setListBrand] = useState<BrandModel[]>([]);
 
+  const { increaseQty, decreaseQty, removeCartItem, cartItems, totalPrice, clearCart, cartQty } = useShoppingContext();
+  const [informError, setInformError] = useState(null);
 
   const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTempKeyWordFindLaptop(e.target.value);
@@ -22,21 +31,36 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
   }
 
   useEffect(() => {
+    takeAllBrand().then(
+      brandData => {
+        setListBrand(brandData);
+      }
+
+    ).catch(
+      error => {
+        setInformError(error.message);
+      }
+    );
+
+  }, [])
+  useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setTopPosition(0);
-      } else {
-        setTopPosition(70);
+      if (laptopDetailsRef.current) {
+        const laptopDetailsTop = laptopDetailsRef.current.getBoundingClientRect().top;
+        if (laptopDetailsTop < -70) {
+          setTopPosition(0);
+        } else {
+          setTopPosition(172);
+        }
       }
     }
-    // every time scroll the mouse, useEffect will repeat this code, 
     window.addEventListener('scroll', handleScroll);
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-    };
-
+    }
   }, []);
+
 
   useEffect(() => {
     const handelResize = () => {
@@ -55,7 +79,7 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
 
   return (
     // .navbar-expand{-sm|-md|-lg|-xl} for responsive collapsing and color scheme classes.
-    <section className="Navbar">
+    <section className="Navbar" ref={laptopDetailsRef as React.RefObject<HTMLDivElement>}>
       <div className="container">
         <div className="Narvar_border1" id="firstDiv" >
           <div className="Navbar01" >
@@ -77,31 +101,36 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
               <div className="nav-left-find-product-border-left"></div>
             </div>
             <div className="nav_space">
-
             </div>
             <div className="nav-right">
-
               <div className="nav-right-item">
                 <NavLink to="#">
                   <i className="fa-solid fa-phone"><p>0349.575.601</p></i></NavLink>
               </div>
 
               <div className="nav-right-item">
-                <NavLink to="#">
+                <NavLink to="/address">
                   <i className="fa-solid fa-location-dot"><p>Địa chỉ cửa hàng</p></i>
                 </NavLink>
               </div>
-
-
-
               <div className="nav-right-item"> <NavLink className="" to="#">
                 <i className="fa-solid fa-headset"><p>Bảo hành </p></i>
               </NavLink></div>
 
-              <div className="nav-right-item">
+              <div className="nav-right-account">
                 <NavLink className="" to="/login">
-                  <i className="fas fa-user fa-xl"> <p>Đăng nhập</p></i>
+                  <i className="fas fa-user fa-xl"> <p>Tài khoản</p></i>
                 </NavLink>
+
+                <div className="nav-right-account-option">
+                  <div className="nav-right-account-option-button1">
+                    <Link to="/login"><button>Đăng nhập</button></Link>
+                  </div>
+                  <div className="nav-right-account-option-button2">
+                    <Link to="/register"><button>Đăng ký</button></Link>
+                  </div>
+                </div>
+
               </div>
 
               <div className="nav-right-cart">
@@ -110,28 +139,135 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
                 </NavLink>
                 {cartQty ? <p>{cartQty}</p> : ""}
 
+                {cartQty ? (
+                  <div className="nav-right-cart-temp">
+                    <table className="">
+                      <tbody >
+                        {cartItems.map(item => {
+                          return (
+                            <React.Fragment key={item.produceID}>
+                              <tr className="cart-content-left-laptopItem-small1">
+                                <td rowSpan={2}> <img src={`${item.produceThumbnail ? item.produceThumbnail.getPictureData() : ''}`} alt="" /></td>
+                                <td colSpan={5}><p className="handel-text-two-line" > {item.produceName}</p></td>
+                              </tr>
+                              <tr className="cart-content-left-laptopItem-small2">
+                                <td colSpan={3}><p>
+                                  {formatNumber(item.produceQty * item.produceSellingPrice)} <sup>đ</sup>
+                                </p></td>
+                                <td colSpan={2}>
+                                  <button type="button" onClick={() => decreaseQty(item.produceID)}> -</button>
+                                  <button type="button" > {item.produceQty}</button>
+                                  <button type="button" onClick={() => increaseQty(item.produceID)}  >+</button>
+                                </td>
+                              </tr>
+                            </React.Fragment>
+                          )
+                        })}
+                      </tbody>
+                    </table>
+                    <div className="nav-right-cart-temp-total">
+                      <td>Thành tiền: </td>
+                      <td>{formatNumber(totalPrice)} <sup>đ</sup></td>
+                    </div>
+                    <div className="nav-right-cart-temp-total-button">
+                      <Link to="/cart"><button>Xem giỏ hàng</button></Link>
+                    </div>
+                  </div>
+                ) : (<div>
+                  <div className="nav-right-cart-temp">
+                    <div className="nav-right-cart-temp-empty">
+                      <img alt="" src={require('./../../images/cart/empty_cart.jpg')} />
+                      <p>Giỏ hàng của bạn đang trống</p>
+                    </div>
+                    <div className="nav-right-cart-temp-total-button">
+                      <Link to="/"><button>Tiếp tục mua hàng</button></Link>
+                    </div>
+                  </div>
+                </div>)}
               </div>
             </div>
           </div>
         </div>
-       
-          <div className={`Narvar_border2 ${topPosition === 0 ? "top-0" : 'top-70'} `} style={{ maxWidth: firstDivWidth }}>
 
-            <div className="Narbar02 "  >
-              <ul>
-                <li> <Link to="/1"><img src={require("../../images/iconsBrand/Dell.webp")} alt="Dell" /></Link></li>
-                <li> <Link to="/2"><img src={require("../../images/iconsBrand/Lenovo.webp")} alt="Lenovo" /></Link></li>
-                <li> <Link to="/3"><img src={require("../../images/iconsBrand/LG.webp")} alt="LG" /></Link></li>
-                <li> <Link to="/4"><img src={require("../../images/iconsBrand/Microsoft_surface.webp")} alt="Microsoft" /></Link></li>
-                <li> <Link to="/5"><img src={require("../../images/iconsBrand/Asus.webp")} alt="Asus" /></Link></li>
-                <li> <Link to="/6"><img src={require("../../images/iconsBrand/MSI-1.webp")} alt="GIGABYTE" /></Link></li>
-                <li> <Link to="/7"><img src={require("../../images/iconsBrand/HP.webp")} alt="HP" /></Link></li>
-                <li> <Link to="/8"><img src={require("../../images/iconsBrand/macbook.webp")} alt="Apple" /></Link></li>
-                <li> <Link to="/9"><img src={require("../../images/iconsBrand/acer.webp")} alt="Acer" /></Link></li>
-                <li> <Link to="/10"><img src={require("../../images/iconsBrand/MSI.webp")} alt="MSI" /></Link></li>
-              </ul>
-            </div>
-          
+        <div className={`Narvar_border2 ${topPosition === 0 ? "top-0" : 'top-70'} `} style={{ maxWidth: firstDivWidth }}>
+
+          <div className="Narbar02 "  >
+            <ul>
+              <li>
+                <Link to="/1"><img src={require("../../images/iconsBrand/Dell.webp")} alt="Dell" /></Link>
+                {listBrand[0] && (
+                  <ul key={listBrand[0].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[0].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li>
+                <Link to="/2"><img src={require("../../images/iconsBrand/Lenovo.webp")} alt="Lenovo" /></Link>
+                {listBrand[1] && (
+                  <ul key={listBrand[1].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[1].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li>
+                <Link to="/3"><img src={require("../../images/iconsBrand/LG.webp")} alt="LG" /></Link>
+                {listBrand[2] && (
+                  <ul key={listBrand[2].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[2].getbrandID()} />
+                  </ul>
+                )}</li>
+              <li> <Link to="/4"><img src={require("../../images/iconsBrand/Microsoft_surface.webp")} alt="Microsoft" /></Link>
+                {listBrand[3] && (
+                  <ul key={listBrand[3].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[3].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li> <Link to="/5"><img src={require("../../images/iconsBrand/Asus.webp")} alt="Asus" /></Link>
+                {listBrand[4] && (
+                  <ul key={listBrand[4].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[4].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li> <Link to="/6"><img src={require("../../images/iconsBrand/MSI-1.webp")} alt="GIGABYTE" /></Link>
+                {listBrand[5] && (
+                  <ul key={listBrand[5].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[5].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li> <Link to="/7"><img src={require("../../images/iconsBrand/HP.webp")} alt="HP" /></Link>
+                {listBrand[6] && (
+                  <ul key={listBrand[6].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[6].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li> <Link to="/8"><img src={require("../../images/iconsBrand/macbook.webp")} alt="Apple" /></Link>
+                {listBrand[7] && (
+                  <ul key={listBrand[7].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[7].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li> <Link to="/9"><img src={require("../../images/iconsBrand/acer.webp")} alt="Acer" /></Link>
+                {listBrand[8] && (
+                  <ul key={listBrand[8].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[8].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+              <li> <Link to="/10"><img src={require("../../images/iconsBrand/MSI.webp")} alt="MSI" /></Link>
+                {listBrand[9] && (
+                  <ul key={listBrand[9].getbrandID()}>
+                    <LaptopModelNameProp brandID={listBrand[9].getbrandID()} />
+                  </ul>
+                )}
+              </li>
+            </ul>
+          </div>
+
         </div>
       </div>
     </section>

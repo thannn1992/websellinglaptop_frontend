@@ -1,6 +1,17 @@
 class ModelModel {
     private modelName: string;
     private modelID: number;
+    private modelDescription: string;
+
+
+  
+    public getModelDescription(): string {
+        return this.modelDescription;
+    }
+
+    public setModelDescription(modelDescription: string): void {
+        this.modelDescription = modelDescription;
+    }
 
 
     public getModelName(): string {
@@ -19,9 +30,10 @@ class ModelModel {
         this.modelID = modelID;
     }
 
-    constructor(modelName: string, modelID: number) {
-        this.modelName = modelName
-        this.modelID = modelID
+    constructor(modelName: string, modelID: number, modelDescription: string) {
+        this.modelName = modelName;
+        this.modelID = modelID;
+        this.modelDescription = modelDescription;
     }
 }
 export default ModelModel;

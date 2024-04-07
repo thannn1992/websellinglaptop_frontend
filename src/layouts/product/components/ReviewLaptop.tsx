@@ -50,7 +50,7 @@ export const ReviewLaptop: React.FC<ReviewLaptopInterface> = (prop) => {
     }
 
     return (
-        <div className="container mt-2 mb-2 text-center">
+        <div className="Review-latop">
             <h4>Đánh giá sản phẩm</h4>
             {
                 listReviewLaptop.map(

@@ -23,12 +23,8 @@ export const Order = () => {
     const [provinceID, setProvinceID] = useState<string>('');
     const [listWards, setListWards] = useState<Wards[]>([]);
     const [listDistricts, setListDistricts] = useState<Districts[]>([]);
-
-
     const [informError, setInformError] = useState(null);
-
     useEffect(() => {
-
         takeAllProvinces().then(
             provincesData => setListProvinces(provincesData)
         ).catch(
@@ -36,7 +32,6 @@ export const Order = () => {
                 setInformError(error.message);
             }
         )
-
         takeAllDistrictOfOneProvince(provinceID).then(
             districtData => setListDistricts(districtData)
         ).catch(
@@ -50,8 +45,6 @@ export const Order = () => {
     const handleGenderChange = (gender: string) => {
         setSelectedGender(gender);
     };
-
-
     const handleProvinceChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedProvinceID = e.target.value;
         setProvinceID(selectedProvinceID);
@@ -63,7 +56,6 @@ export const Order = () => {
             }
         );
     }
-
     const handleDistrictChanged = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const selectedDistrictID = e.target.value;
         setProvinceID(selectedDistrictID);
@@ -81,24 +73,21 @@ export const Order = () => {
             setSelectedVAT(false)
         } else {
             setSelectedVAT(true)
-
         }
     }
 
-    const handlePaymentMethod = (payment: string) =>{
+    const handlePaymentMethod = (payment: string) => {
         setCheckPayment(payment);
-        if(payment ==="ByCash"){
+        if (payment === "ByCash") {
             setOrderButton(true);
-        }else{
+        } else {
             setOrderButton(false);
         }
     }
 
-
     return (
-
         <div className="background-color-main">
-            <div className="cart-mk marginTop80px">
+            <div className="cart-mk">
             </div>
             <div className="container">
                 <div className="cart-border">
@@ -143,12 +132,12 @@ export const Order = () => {
 
             </div>
             <div className="container">
-                <div className="order-border">
-                    <div className="cart-content">
-                        <div className="order-content-border">
-                            <div className="order-content">
+                <div className="order">
+                    <div className="order-border">
+                        <div className="cart-content">
+                            <div className="order-content-border">
                                 <form action="" method="post" className="cart_form">
-                                    <h4>Thông tin khách mua hàng</h4>
+                                    <h4>Thông tin khách mua hàng: <span className="requiredInput">*</span></h4>
                                     <div className="order_custom_infor">
                                         <div className="order_custom_infor_gender">
                                             <input className="order_custom_infor_gender_item_1"
@@ -158,7 +147,7 @@ export const Order = () => {
                                                 value="Nam"
                                                 checked={selectedGender === 'Nam'}
                                                 onChange={() => handleGenderChange('Nam')} />
-                                            <label htmlFor="Nam" >Anh </label>
+                                            <label htmlFor="Nam" > Anh</label>
                                             <input className="order_custom_infor_gender_item_2"
                                                 type="radio"
                                                 id="Nu"
@@ -166,7 +155,7 @@ export const Order = () => {
                                                 value="Nu"
                                                 checked={selectedGender === "Nu"}
                                                 onChange={() => handleGenderChange('Nu')} />
-                                            <label htmlFor="Nu" >Chị </label>
+                                            <label htmlFor="Nu" > Chị</label>
                                         </div>
                                         <div className="order_custom_infor_fullname">
                                             <input className="order_custom_infor_fullname_firstname" type="name" name="FullName" id="FullName" placeholder="Nhập họ tên" />
@@ -176,7 +165,7 @@ export const Order = () => {
                                     </div>
                                     <br />
 
-                                    <h4>Địa chỉ nhận hàng</h4>
+                                    <h4>Địa chỉ nhận hàng: <span className="requiredInput">*</span></h4>
                                     <div className="order_custom_infor_address">
                                         <select onChange={(e) => {
                                             handleProvinceChanged(e);
@@ -223,24 +212,24 @@ export const Order = () => {
                                     </div>
 
                                     <div className="order_custom_infor_payment_method">
-                                        <h4>Phương thức thanh toán:</h4>
+                                        <h4>Phương thức thanh toán: <span className="requiredInput">*</span></h4>
                                         <div className="order_custom_infor_payment_method_border">
                                             <h5>Mọi giao dịch đều được bảo mật và mã hóa. Thông tin thẻ tín dụng sẽ không bao giờ được lưu lại.</h5>
                                             <div className="order_custom_infor_payment_method_item">
                                                 <div className="order_custom_infor_payment_method_item_mastercard ">
-                                                    <input type="radio" id="mastercard" name="mastercard" value="mastercard" checked={checkPayment ==="Mastercard"} onClick={()=>handlePaymentMethod('Mastercard')}/>
+                                                    <input type="radio" id="mastercard" name="mastercard" value="mastercard" checked={checkPayment === "Mastercard"} onClick={() => handlePaymentMethod('Mastercard')} />
                                                     <label htmlFor="mastercard">Thanh toán bằng thẻ tín dụng  </label>
                                                 </div>
                                                 <div className="order_custom_infor_payment_method_item_ATM">
-                                                    <input type="radio" id="ATM" name="ATM" value="ATM" checked={checkPayment ==="ATM"} onClick={()=>handlePaymentMethod('ATM')}/>
+                                                    <input type="radio" id="ATM" name="ATM" value="ATM" checked={checkPayment === "ATM"} onClick={() => handlePaymentMethod('ATM')} />
                                                     <label htmlFor="ATM"> Thanh toán bằng thẻ ATM </label>
                                                 </div>
                                                 <div className="order_custom_infor_payment_method_item_Momo">
-                                                    <input type="radio" id="momo" name="momo" value="momo" checked={checkPayment ==="Momo"} onClick={()=>handlePaymentMethod('Momo')}/>
+                                                    <input type="radio" id="momo" name="momo" value="momo" checked={checkPayment === "Momo"} onClick={() => handlePaymentMethod('Momo')} />
                                                     <label htmlFor="momo">Thanh toán bằng Momo  </label>
                                                 </div>
                                                 <div className="order_custom_infor_payment_method_item_bycash">
-                                                    <input type="radio" id="bycash" name="bycash" value="bycash" checked={checkPayment ==="ByCash"} onClick={()=>handlePaymentMethod('ByCash')}/>
+                                                    <input type="radio" id="bycash" name="bycash" value="bycash" checked={checkPayment === "ByCash"} onClick={() => handlePaymentMethod('ByCash')} />
                                                     <label htmlFor="bycash">Thanh toán khi giao hàng</label>
                                                 </div>
                                             </div>
@@ -269,11 +258,12 @@ export const Order = () => {
                                     </div>
                                     <div className="cart-content-right-bottom">
                                         <div className="cart-content-right-bottom-button">
-                                            {orderButton&& <Link to="/order-inform"><button>ĐẶT HÀNG</button></Link>}
-                                            {(orderButton==false)&& <Link to="/order-continue"><button>TIẾP TỤC THANH TOÁN</button></Link>}
+                                            {orderButton && <Link to="/order-inform"><button>ĐẶT HÀNG</button></Link>}
+                                            {(orderButton == false) && <Link to="/order-continue"><button>TIẾP TỤC THANH TOÁN</button></Link>}
                                         </div>
                                     </div>
                                 </form>
+
                             </div>
                         </div>
                     </div>

@@ -48,13 +48,7 @@ export const CarouselItem: React.FC<CarouselItemAPIInterface> = (prop) => {
     return(
 <div className="">
    
-    <div className="col-3">
-        {/* <h5>{prop.laptop.getLaptopName()}</h5> */}
-
-        {/* <p>{prop.laptop.getDescriber()}</p> */}
-
-    </div>
-    <div className="col-9 text-center">
+    <div className="">
         <img src={`${listPictures[0].getPictureData()}`} 
         // className="float-end"
         alt={prop.laptop.getLaptopName()

@@ -8,26 +8,35 @@ import ModelModel from "../../models/ModelModel";
 import BrandModel from "../../models/BrandModel";
 import { takeAllBrand } from "../../api/BrandAPI";
 import { LaptopModelNameProp } from "./component/LaptopModelNameProp";
+import useInformDialogContext from "../../contexts/InformContextProvider";
+import { TakeInforJWT } from "../user/TakeInforJWT";
 
 interface NavBarProps {
   setKeyWordFindLaptops: (keyWord: string) => void;
 }
 
 function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
+  const { isShowNotification } = useInformDialogContext();
+
   const [topPosition, setTopPosition] = useState<number>(70);
   const [tempKeyWordFindLaptops, setTempKeyWordFindLaptop] = useState('');
   const [firstDivWidth, setFirstDivWidth] = useState<number>(0);
   const laptopDetailsRef = useRef<HTMLDListElement | null>(null);
   const [listBrand, setListBrand] = useState<BrandModel[]>([]);
-
   const { increaseQty, decreaseQty, removeCartItem, cartItems, totalPrice, clearCart, cartQty } = useShoppingContext();
   const [informError, setInformError] = useState(null);
+  const [positionShowButton, setPositionShowButton] = useState<number>(0);
+  const [isToken, setIsToken] = useState<boolean>(false);
 
   const onSearchInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTempKeyWordFindLaptop(e.target.value);
   }
   const handleSearch = () => {
     setKeyWordFindLaptops(tempKeyWordFindLaptops);
+  }
+
+  const handleScrolltoTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   useEffect(() => {
@@ -53,6 +62,11 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
           setTopPosition(172);
         }
       }
+      if (window.scrollY > 500) {
+        setPositionShowButton(1);
+      } else {
+        setPositionShowButton(0);
+      }
     }
     window.addEventListener('scroll', handleScroll);
 
@@ -60,7 +74,6 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
       window.removeEventListener('scroll', handleScroll);
     }
   }, []);
-
 
   useEffect(() => {
     const handelResize = () => {
@@ -75,6 +88,13 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
       window.removeEventListener('resize', handelResize);
     };
   }, [])
+
+  useEffect(() => {
+
+    if (localStorage.getItem('token') != null) {
+      setIsToken(true);
+    };
+  }, [isToken]);
 
 
   return (
@@ -96,7 +116,9 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
                   onChange={onSearchInputChange} value={tempKeyWordFindLaptops} />
               </div>
               <div className="nav-left-find-prodcut-input-bottom">
-                <button type="submit" onClick={handleSearch}>  <i className="fa-solid fa-magnifying-glass"></i> </button>
+                <Link to={tempKeyWordFindLaptops === "" ? "#" : "/find-laptop"} >
+                  <button type="submit" onClick={handleSearch}>  <i className="fa-solid fa-magnifying-glass"></i> </button>
+                </Link>
               </div>
               <div className="nav-left-find-product-border-left"></div>
             </div>
@@ -113,25 +135,26 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
                   <i className="fa-solid fa-location-dot"><p>Địa chỉ cửa hàng</p></i>
                 </NavLink>
               </div>
-              <div className="nav-right-item"> <NavLink className="" to="#">
+              <div className="nav-right-item"> <NavLink className="" to="/warranties/policy">
                 <i className="fa-solid fa-headset"><p>Bảo hành </p></i>
               </NavLink></div>
+              
+              {isToken ? (<TakeInforJWT />) : (
+                <div className="nav-right-account">
+                  <NavLink className="" to="/login">
+                    <i className="fas fa-user fa-xl"> <p>Tài khoản</p></i>
+                  </NavLink>
 
-              <div className="nav-right-account">
-                <NavLink className="" to="/login">
-                  <i className="fas fa-user fa-xl"> <p>Tài khoản</p></i>
-                </NavLink>
-
-                <div className="nav-right-account-option">
-                  <div className="nav-right-account-option-button1">
-                    <Link to="/login"><button>Đăng nhập</button></Link>
-                  </div>
-                  <div className="nav-right-account-option-button2">
-                    <Link to="/register"><button>Đăng ký</button></Link>
+                  <div className="nav-right-account-option">
+                    <div className="nav-right-account-option-button1">
+                      <Link to="/login"><button>Đăng nhập</button></Link>
+                    </div>
+                    <div className="nav-right-account-option-button2">
+                      <Link to="/register"><button>Đăng ký</button></Link>
+                    </div>
                   </div>
                 </div>
-
-              </div>
+              )}
 
               <div className="nav-right-cart">
                 <NavLink to="/cart">
@@ -188,9 +211,7 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
             </div>
           </div>
         </div>
-
         <div className={`Narvar_border2 ${topPosition === 0 ? "top-0" : 'top-70'} `} style={{ maxWidth: firstDivWidth }}>
-
           <div className="Narbar02 "  >
             <ul>
               <li>
@@ -267,9 +288,29 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
               </li>
             </ul>
           </div>
-
         </div>
       </div>
+
+      <div className="container">
+        <div className={`ButtonComeBackTop ${positionShowButton === 1 ? 'positionShowButton' : ''}`}>
+          <div className="ButtonComeBackTop_button">
+
+            <button onClick={handleScrolltoTop}> <i className="fa-solid fa-arrow-up"></i> </button>
+          </div>
+        </div>
+      </div>
+      {isShowNotification ? (
+        <div className="ShowNotification">
+          <div className="ShowNotification_border">
+          </div>
+          <div className="ShowNotification_containt">
+            <i className="bi bi-bag-check"></i>
+            <h4>Thêm vào giỏ hàng thành công!</h4>
+          </div>
+        </div>
+      ) : ""}
+
+
     </section>
 
   );

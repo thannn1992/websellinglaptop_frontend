@@ -5,18 +5,14 @@ import { CarouselItem } from "./CarouselItem";
 export const Carousel: React.FC = () => {
 
     // handel button left right
-    const lefttBtn = document.querySelector('.fa-angle-left');
-    const rightBtn = document.querySelector('.fa-angle-right');
+
     const totalImg = document.querySelectorAll('.slider01-top-container img')
 
     const [listLaptops, setListLaptop] = useState<LaptopModel[]>([])
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
     const [informError, setInformError] = useState(null);
     const [index, setIndex] = useState<number>(0);
-
-   
     const totalDot = document.querySelectorAll('.dot');
-    
 
     useEffect(() => {
         // Quan trọng: Hàm sẽ chạy lại khi index và widthLaptop cập nhật
@@ -26,15 +22,17 @@ export const Carousel: React.FC = () => {
         const handelMoveBanner = () => {
             if (temp) {
                 temp.style.right = index * 100 + "%";
+
                 totalDot.forEach(function (dot, indexDot) {
-                   if(indexDot === index){
-                    removeDotActive();
-                    dot.classList.add("dot-active");
-                   }
-                })   
+                    if (indexDot === index) {
+                        removeDotActive();
+                        dot.classList.add("dot-active");
+                    }
+                })
             }
         };
         handelMoveBanner();
+
     }, [index])
 
     useEffect(() => {
@@ -55,14 +53,14 @@ export const Carousel: React.FC = () => {
     };
 
     //Handel button dot
-    if(totalDot.length>0){
+    if (totalDot.length > 0) {
         totalDot.forEach(function (dot, indexDot) {
             dot.addEventListener("click", function () {
                 removeDotActive();
                 dot.classList.add("dot-active");
                 setIndex(indexDot);
             })
-        })   
+        })
     }
     function removeDotActive() {
         let dotActive = document.querySelector('.dot-active');

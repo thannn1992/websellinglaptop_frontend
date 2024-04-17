@@ -13,6 +13,7 @@ const Login = () => {
         };
         console.log(username);
         console.log(password);
+
         fetch('http://localhost:8080/api/account/login',
             {
                 method: 'POST',
@@ -34,8 +35,10 @@ const Login = () => {
                     const { jwt } = data;
                     //save token in localStorage or cookie
                     localStorage.setItem('token', jwt);
-                    setError('Đăng nhập thành công');
 
+                    setError('Đăng nhập thành công');
+                    // redirect to homepage
+                    window.location.href = '/';
                 }
             ).catch((error) => {
                 console.error('Đăng nhập thất bại:', error);

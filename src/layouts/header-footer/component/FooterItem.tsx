@@ -16,9 +16,9 @@ function FooterItem() {
 
                             <ul className="nav flex-column">
                                 <li className=" mb-2"><a href="#" className="">Trang chủ</a></li>
-                                <li className=" mb-2"><a href="#" >Giới thiệu</a></li>
+                                <li className=" mb-2"><a href="/about" >Giới thiệu</a></li>
                                 <li className=" mb-2"><a href="#" >Sản phẩm</a></li>
-                                <li className=" mb-2"><a href="#" >Liên hệ</a></li>
+                                <li className=" mb-2"><a href="/address" >Liên hệ</a></li>
                             </ul>
                         </div>
 

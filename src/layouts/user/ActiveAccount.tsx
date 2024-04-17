@@ -23,7 +23,6 @@ export function ActivateAccount() {
 
             }else{
                 setInform(response.text+ "");
-
             }
 
         }catch (error) {

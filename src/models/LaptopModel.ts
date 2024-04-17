@@ -1,3 +1,5 @@
+import PictureModel from "./PictureModel";
+
 class LaptopModel {
     private laptopID: number;
     private laptopName: string;
@@ -19,6 +21,7 @@ class LaptopModel {
     private operatingSystem: string;
     private displaySize: string;
     private coating: string;
+    
 
 
     public getLaptopID(): number {
@@ -181,7 +184,7 @@ class LaptopModel {
         this.coating = coating;
     }
 
-    
+   
 
     constructor(
         laptopID: number,
@@ -203,7 +206,8 @@ class LaptopModel {
         webcam: string,
         operatingSystem: string,
         displaySize: string,
-        coating: string
+        coating: string,
+       
     ) {
         this.laptopID = laptopID
         this.laptopName = laptopName
@@ -225,6 +229,7 @@ class LaptopModel {
         this.operatingSystem = operatingSystem
         this.displaySize = displaySize
         this.coating = coating
+       
     }
 }
 export default LaptopModel;

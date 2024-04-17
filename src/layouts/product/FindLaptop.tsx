@@ -6,10 +6,9 @@ import { Pagination } from "../utils/Pagination";
 
 interface listLaptopProps {
     keyWordFindLaptops: string;
-    brandIDNumber: number;
 }
 
-function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
+export function FindLaptop({ keyWordFindLaptops }: listLaptopProps) {
 
     const [listLaptops, setListLaptops] = useState<LaptopModel[]>([]);
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
@@ -20,36 +19,20 @@ function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
     const [totalLaptops, setTotalLaptops] = useState(0);
 
     useEffect(() => {
-        if (keyWordFindLaptops === '' && brandIDNumber == 0) {
-            takeAllLaptops(presentPage - 1).then(
-                laptopData => {
-                    setListLaptops(laptopData.result);
-                    setTotalPages(laptopData.totalPages);
-                    setTotalLaptops(laptopData.totalLaptops);
+        findBooks(keyWordFindLaptops).then(
+            laptopData => {
+                setListLaptops(laptopData.result);
+                setTotalPages(laptopData.totalPages);
+                setTotalLaptops(laptopData.totalLaptops);
 
-                    setUpLoadingData(false);
-                }
-            ).catch(
-                error => {
-                    setInformError(error.message);
-                }
-            );
-        } else {
-            findBooks(keyWordFindLaptops).then(
-                laptopData => {
-                    setListLaptops(laptopData.result);
-                    setTotalPages(laptopData.totalPages);
-                    setTotalLaptops(laptopData.totalLaptops);
-
-                    setUpLoadingData(false);
-                }
-            ).catch(
-                error => {
-                    setInformError(error.message);
-                }
-            );
-        }
-    }, [presentPage, keyWordFindLaptops, brandIDNumber]
+                setUpLoadingData(false);
+            }
+        ).catch(
+            error => {
+                setInformError(error.message);
+            }
+        );
+    }, [presentPage, keyWordFindLaptops]
     )
 
     const pagination = (page: number) => {
@@ -76,22 +59,24 @@ function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
         return (
             <div className="container">
                 <div className="d-flex align-items-center justify-content-center mt-4">
-                    <h1> Không tìm thấy sách quý khách tìm kiếm!</h1>
+                    <h1> Không tìm thấy laptop quý khách tìm kiếm!</h1>
                 </div>
             </div>
         )
     }
-
     return (
-
-        <div className="AllLaptops">
+        <div className="FindLaptop background-color-main">
             <div className="container">
 
-                <div className="AllLaptops-container">
-                    <div className="SliderOutstandingLaptop-container-title">
-                        <h4>TOÀN BỘ LAPTOP</h4>
+                <div className="FindLaptop_top">
+                    <div className="FindLaptop_top_border">
+                        <div className="FindLaptop_top_border_content">
+                            <h4>Kết quả tìm kiếm cho: <span>"{keyWordFindLaptops}"</span></h4>
+                            <h5>Tìm thấy <span>{listLaptops.length}</span> sản phẩm</h5>
+                        </div>
                     </div>
-
+                </div>
+                <div className="FindLaptop-bottom">
                     <div className="LaptopBestSelling-container-laptop">
                         <div className="LaptopBestSelling-container-laptop-items">
                             {
@@ -114,9 +99,5 @@ function ListLaptopAPI({ keyWordFindLaptops, brandIDNumber }: listLaptopProps) {
             </div>
 
         </div>
-
-
-
     )
 }
-export default ListLaptopAPI;

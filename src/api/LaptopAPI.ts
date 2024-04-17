@@ -39,7 +39,9 @@ async function takeLaptop(link: string): Promise<ResultPagingInterface> {
             responseData[key].webcam,
             responseData[key].operatingSystem,
             responseData[key].displaySize,
-            responseData[key].coating
+            responseData[key].coating,
+           
+
         );
 
         result.push(laptop);
@@ -67,15 +69,11 @@ export async function take10CheapExLaptop(): Promise<ResultPagingInterface> {
     return takeLaptop(endpoint);
 }
 
-export async function findBooks(keyWordFindBooks: string, brandID: number): Promise<ResultPagingInterface> {
-    let endpoint: string = ``;
-    if (keyWordFindBooks !== '' && brandID == 0) {
-        endpoint = `http://localhost:8080/laptop/search/findByLaptopNameContaining?laptopName=${keyWordFindBooks}`;
-    } else if (keyWordFindBooks === '' && brandID > 0) {
-        endpoint = `http://localhost:8080/laptop/search/findByBrand_BrandID?brandID=${brandID}`;
-    } else if (keyWordFindBooks !== '' && brandID > 0) {
-        endpoint = `http://localhost:8080/laptop/search/findByBrand_BrandIDAndLaptopNameContaining?brandID=${brandID}&laptopName=${keyWordFindBooks}`;
-    }
+export async function findBooks(keyWordFindBooks: string): Promise<ResultPagingInterface> {
+
+
+    let endpoint = `http://localhost:8080/laptop/search/findByLaptopNameContaining?laptopName=${keyWordFindBooks}`;
+
     return takeLaptop(endpoint);
 }
 
@@ -122,7 +120,8 @@ export async function takeALaptopFromID(laptopID: number): Promise<LaptopModel |
                 laptopData.webcam,
                 laptopData.operatingSystem,
                 laptopData.displaySize,
-                laptopData.coating
+                laptopData.coating,
+                
             );
 
             return laptop;
@@ -134,6 +133,5 @@ export async function takeALaptopFromID(laptopID: number): Promise<LaptopModel |
         console.error("Error: ", error);
         return null;
     }
-
 
 }

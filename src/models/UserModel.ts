@@ -4,7 +4,7 @@ class UserModel {
     private lastName: string;
     private usersName: string;
     private password: string;
-    private gender: boolean;
+    private gender: number;
     private email: string;
     private phoneNumber: string;
     private birthDay: Date;
@@ -61,11 +61,11 @@ class UserModel {
         this.password = password;
     }
 
-    public isGender(): boolean {
+    public getGender(): number {
         return this.gender;
     }
 
-    public setGender(gender: boolean): void {
+    public setGender(gender: number): void {
         this.gender = gender;
     }
 
@@ -114,7 +114,7 @@ class UserModel {
         lastName: string,
         usersName: string,
         password: string,
-        gender: boolean,
+        gender: number,
         email: string,
         phoneNumber: string,
         birthDay:Date,

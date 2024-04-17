@@ -14,12 +14,16 @@ import { useShoppingContext } from "../../../contexts/ShoppingContextProvider";
 import ReviewModel from "../../../models/ReviewModel";
 import { takeAllReviewOfOneLaptop } from "../../../api/ReviewAPI";
 import { renderRating } from "../../utils/StarRating";
+import useInformDialogContext from "../../../contexts/InformContextProvider";
+
 
 interface LaptopPropAPIInterface {
     laptop: LaptopModel;
 }
 
 const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
+
+    const {handleShowNotification} = useInformDialogContext();
 
     const laptopID = props.laptop.getLaptopID();
     const listedPrice: number = props.laptop.getListedPrice();
@@ -37,7 +41,8 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
     const [upLoadingData, setUpLoadingData] = useState<boolean>(true);
     const [informError, setInformError] = useState(null);
     const { addCartItem } = useShoppingContext();
-
+   
+ 
     useEffect(() => {
 
         takeAllPictureOfOneLaptop(laptopID).then(
@@ -82,8 +87,6 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
 
         setUpLoadingData(false)
 
-
-
         takeAllReviewOfOneLaptop(laptopID).then(
             (reviewData) => {
                 if (reviewData[0] == null) {
@@ -108,7 +111,6 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
         );
 
     }, [])
-
 
 
     if (upLoadingData) {
@@ -178,7 +180,8 @@ const LaptopPropAPI: React.FC<LaptopPropAPIInterface> = (props) => {
                 
                     </div>
                     <div className="laptop-prop-container-text-addCart">
-                        <Link to={`#`} onClick={() => addCartItem(props.laptop)}> <i className="fa-solid fa-cart-plus"></i></Link>
+                        <Link to={`#`} onClick={() =>{addCartItem(props.laptop); handleShowNotification()} }> <i className="fa-solid fa-cart-plus"></i></Link>
+                       
                     </div>
 
 

@@ -2,7 +2,7 @@ import React from "react";
 import BrandModel from "../models/BrandModel";
 import request from "./Request";
 
-async function takeBrandofLaptop(endpoint: string): Promise<BrandModel> {
+async function takeOneBrandBackEnd(endpoint: string): Promise<BrandModel> {
     const response = await request(endpoint);
     const responseData = response;
     const result = new BrandModel(
@@ -13,7 +13,7 @@ async function takeBrandofLaptop(endpoint: string): Promise<BrandModel> {
     return result;
 }
 
-async function takeAll(endpoint: string): Promise<BrandModel[]> {
+async function takeAllBrandBackEnd(endpoint: string): Promise<BrandModel[]> {
     const result: BrandModel[] = [];
     const response = await request(endpoint);
     const responseData = await response._embedded.brands;
@@ -30,18 +30,19 @@ async function takeAll(endpoint: string): Promise<BrandModel[]> {
     return result;
 }
 
+
 export async function takeBrandofALaptop(laptopID: number): Promise<BrandModel> {
     let endpoint = `http://localhost:8080/laptop/${laptopID}/brand`;
-    return takeBrandofLaptop(endpoint);
+    return takeOneBrandBackEnd(endpoint);
 }
 
 export async function takeBrandFromID(brandID: number): Promise<BrandModel> {
     let endpoint = `http://localhost:8080/brand/${brandID}`;
-    return takeBrandofLaptop(endpoint);
+    return takeOneBrandBackEnd(endpoint);
 }
 
 export async function takeAllBrand(): Promise<BrandModel[]> {
     let endpoint = `http://localhost:8080/brand?sort=brandID,arc`;
-    return takeAll(endpoint);
+    return takeAllBrandBackEnd(endpoint);
 }
 

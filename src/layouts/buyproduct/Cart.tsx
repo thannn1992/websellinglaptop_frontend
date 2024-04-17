@@ -5,11 +5,13 @@ import LaptopModel from "../../models/LaptopModel";
 import { takeAllPictureOfOneLaptop } from "../../api/PictureAPI";
 import { formatNumber } from "../utils/FormatNumber";
 import { Link } from "react-router-dom";
+import useConfirmDialogContext from "../../contexts/ConfirmContextProvider";
 
 export const Cart = () => {
 
     const { increaseQty, decreaseQty, removeCartItem, cartItems, totalPrice, clearCart, cartQty } = useShoppingContext();
     let [pictureLaptop, setPictureLaptop] = useState<LaptopModel[]>([]);
+    const { handleShowNotification, isShowNotification,ProduceID, handleCloseNotification, handleUpdateProduceID } = useConfirmDialogContext();
 
     const [isSmallerSize, setIsSamllerSize] = useState<boolean>();
 
@@ -88,6 +90,22 @@ export const Cart = () => {
                             <div className="cart-content">
                                 <div className="cart-content-left-border">
                                     <div className="cart-content-left">
+
+                                        {isShowNotification ? (
+                                            <div className="ShowNotification">
+                                                <div className="ShowNotification_border">
+                                                </div>
+                                                <div className="ShowNotification_containt_confirm">
+                                                    <h4>Thông báo</h4>
+                                                    <h5>Bạn muốn xóa sản phẩm này khỏi giỏ hàng?</h5>
+                                                    <div className="ShowNotification_containt_confirm_button">
+                                                        <button onClick={() => handleCloseNotification()}> Hủy bỏ</button>
+                                                        <button  onClick={() => {removeCartItem(ProduceID); handleCloseNotification()} }>Đồng ý</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ) : ""}
+
                                         <h4>Giỏ hàng của bạn <span>{cartQty} sản phẩm </span></h4>
                                         {isSmallerSize ? (
                                             <table className="">
@@ -145,8 +163,10 @@ export const Cart = () => {
                                                                         {formatNumber(item.produceQty * item.produceSellingPrice)} <sup>đ</sup>
                                                                     </p>
                                                                 </td>
-                                                                <td><button type="button" onClick={() => removeCartItem(item.produceID)}><i className="fa-regular fa-trash-can"></i></button></td>
-
+                                                                <td><button type="button" onClick={() => {handleShowNotification(); handleUpdateProduceID(item.produceID)}}>
+                                                                    <i className="fa-regular fa-trash-can"></i></button></td>
+                                                                {/* <td><button type="button" onClick={() => removeCartItem(item.produceID)}>
+                                                                <i className="fa-regular fa-trash-can"></i></button></td> */}
                                                             </tr>
                                                         )
                                                     })}

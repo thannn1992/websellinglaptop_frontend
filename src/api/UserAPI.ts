@@ -3,7 +3,7 @@ import UserModel from "../models/UserModel";
 
 export async function takeUserFromUserName(username: string): Promise<UserModel | null> {
     
-    const endpoint: string = `http://localhost:8080/user/search/findByUserName?userName=${username}`;
+    const endpoint: string = `http://14.225.205.7:8080/user/search/findByUserName?userName=${username}`;
     try {
         const response = await fetch(endpoint);
         if (!response.ok) {

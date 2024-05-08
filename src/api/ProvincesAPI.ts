@@ -26,7 +26,7 @@ return result;
 }
 
 export async function takeAllProvinces():Promise<Provinces[]> {
-    const endpoint:string = `http://localhost:8080/provinces?sort=name,asc&size=70`;
+    const endpoint:string = `http://14.225.205.7:8080/provinces?sort=name,asc&size=70`;
     return takeOneProvinces(endpoint);
 }
 

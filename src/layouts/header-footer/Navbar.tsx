@@ -168,19 +168,19 @@ function Navbar({ setKeyWordFindLaptops }: NavBarProps) {
                       <tbody >
                         {cartItems.map(item => {
                           return (
-                            <React.Fragment key={item.produceID}>
+                            <React.Fragment key={item.getProduceID()}>
                               <tr className="cart-content-left-laptopItem-small1">
-                                <td rowSpan={2}> <img src={`${item.produceThumbnail ? item.produceThumbnail.getPictureData() : ''}`} alt="" /></td>
-                                <td colSpan={5}><p className="handel-text-two-line" > {item.produceName}</p></td>
+                                <td rowSpan={2}> <img src={`${item.getProduceThumbnail() ? item.getProduceThumbnail().getPictureData() : ''}`} alt="" /></td>
+                                <td colSpan={5}><p className="handel-text-two-line" > {item.getProduceName()}</p></td>
                               </tr>
                               <tr className="cart-content-left-laptopItem-small2">
                                 <td colSpan={3}><p>
-                                  {formatNumber(item.produceQty * item.produceSellingPrice)} <sup>đ</sup>
+                                  {formatNumber(item.getProduceQty() * item.getProduceSellingPrice())} <sup>đ</sup>
                                 </p></td>
                                 <td colSpan={2}>
-                                  <button type="button" onClick={() => decreaseQty(item.produceID)}> -</button>
-                                  <button type="button" > {item.produceQty}</button>
-                                  <button type="button" onClick={() => increaseQty(item.produceID)}  >+</button>
+                                  <button type="button" onClick={() => decreaseQty(item.getProduceID())}> -</button>
+                                  <button type="button" > {item.getProduceQty()}</button>
+                                  <button type="button" onClick={() => increaseQty(item.getProduceID())}  >+</button>
                                 </td>
                               </tr>
                             </React.Fragment>

@@ -33,17 +33,17 @@ async function takeAllProcessorBackEnd(endpoint: string): Promise<ProcessorModel
 }
 
 export async function takeOneProcessorOfOneLaptop(laptopID: number): Promise<ProcessorModel> {
-    const endpoint: string = `http://localhost:8080/laptop/${laptopID}/processor`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop/${laptopID}/processor`;
     return takeAProcessorBackEnd(endpoint);
 }
 
 export async function takeAllProcessor(): Promise<ProcessorModel[]> {
-    const endpoint: string = `http://localhost:8080/processor`;
+    const endpoint: string = `http://14.225.205.7:8080/processor`;
     return takeAllProcessorBackEnd(endpoint);
 }
 
 export async function takeOneProcessorByID(processorID: number): Promise<ProcessorModel> {
-    const endpoint: string = `http://localhost:8080/processor/${processorID}`;
+    const endpoint: string = `http://14.225.205.7:8080/processor/${processorID}`;
     return takeAProcessorBackEnd(endpoint);
 }
 

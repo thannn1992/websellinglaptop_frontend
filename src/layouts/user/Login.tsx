@@ -11,10 +11,9 @@ const Login = () => {
             username: username,
             password: password
         };
-        console.log(username);
-        console.log(password);
+       
 
-        fetch('http://localhost:8080/api/account/login',
+        fetch('http://14.225.205.7:8080/api/account/login',
             {
                 method: 'POST',
 

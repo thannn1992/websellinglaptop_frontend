@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function FooterItem() {
     return (
@@ -15,10 +16,10 @@ function FooterItem() {
                             </div>
 
                             <ul className="nav flex-column">
-                                <li className=" mb-2"><a href="#" className="">Trang chủ</a></li>
-                                <li className=" mb-2"><a href="/about" >Giới thiệu</a></li>
-                                <li className=" mb-2"><a href="#" >Sản phẩm</a></li>
-                                <li className=" mb-2"><a href="/address" >Liên hệ</a></li>
+                                <li className=" mb-2"><Link to="/">Trang chủ</Link></li>
+                                <li className=" mb-2"><Link to="/about" >Giới thiệu</Link></li>
+                                <li className=" mb-2"><Link to="#" >Sản phẩm</Link></li>
+                                <li className=" mb-2"><Link to="/address" >Liên hệ</Link></li>
                             </ul>
                         </div>
 
@@ -29,11 +30,11 @@ function FooterItem() {
                                 </div>
                             </div>
                             <ul className="nav flex-column">
-                                <li className=" mb-2"><a href="#" >Hướng dẫn mua hàng trực tuyến</a></li>
-                                <li className=" mb-2"><a href="#" >Hướng dẫn thanh toán</a></li>
-                                <li className=" mb-2"><a href="#" >Hướng dẫn mua hàng trả góp</a></li>
-                                <li className=" mb-2"><a href="#" >In hóa đơn điện tử</a></li>
-                                <li className=" mb-2"><a href="#" >Tra cứu bảo hành</a></li>
+                                <li className=" mb-2"><Link to="#" >Hướng dẫn mua hàng trực tuyến</Link></li>
+                                <li className=" mb-2"><Link to="#" >Hướng dẫn thanh toán</Link></li>
+                                <li className=" mb-2"><Link to="#" >Hướng dẫn mua hàng trả góp</Link></li>
+                                <li className=" mb-2"><Link to="#" >In hóa đơn điện tử</Link></li>
+                                <li className=" mb-2"><Link to="#" >Tra cứu bảo hành</Link></li>
                             </ul>
                         </div>
 
@@ -44,11 +45,11 @@ function FooterItem() {
                                 </div>
                             </div>
                             <ul className="nav flex-column">
-                                <li className=" mb-2"><a href="#" >Chính sách vận chuyển</a></li>
-                                <li className=" mb-2"><a href="#" >Chính sách bảo hành</a></li>
-                                <li className=" mb-2"><a href="#" >Chính sách kiểm hàng</a></li>
-                                <li className=" mb-2"><a href="#" >Chính sách đổi trả</a></li>
-                                <li className=" mb-2"><a href="#" >Bảo mật thông tin khách hàng</a></li>
+                                <li className=" mb-2"><Link to="#" >Chính sách vận chuyển</Link></li>
+                                <li className=" mb-2"><Link to="#" >Chính sách bảo hành</Link></li>
+                                <li className=" mb-2"><Link to="#" >Chính sách kiểm hàng</Link></li>
+                                <li className=" mb-2"><Link to="#" >Chính sách đổi trả</Link></li>
+                                <li className=" mb-2"><Link to="#" >Bảo mật thông tin khách hàng</Link></li>
                             </ul>
                         </div>
 

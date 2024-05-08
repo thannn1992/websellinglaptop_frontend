@@ -26,7 +26,7 @@ async function takeReviewOfOneLaptop(endpoint: string): Promise<ReviewModel[]> {
 }
 
 export async function takeAllReviewOfOneLaptop(laptopID:number) {
-    const endpoint: string = `http://localhost:8080/laptop/${laptopID}/listReview`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop/${laptopID}/listReview`;
 
     return takeReviewOfOneLaptop(endpoint);
 }

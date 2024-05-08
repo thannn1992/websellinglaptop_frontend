@@ -41,7 +41,6 @@ async function takeLaptop(link: string): Promise<ResultPagingInterface> {
             responseData[key].displaySize,
             responseData[key].coating,
            
-
         );
 
         result.push(laptop);
@@ -50,45 +49,45 @@ async function takeLaptop(link: string): Promise<ResultPagingInterface> {
 }
 
 export async function takeAllLaptops(presentPage: number): Promise<ResultPagingInterface> {
-    const endpoint: string = `http://localhost:8080/laptop?sort=laptopID,desc&size=10&page=${presentPage}`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop?sort=laptopID,desc&size=10&page=${presentPage}`;
     return takeLaptop(endpoint);
 }
 
 export async function take3NewestLaptops(): Promise<ResultPagingInterface> {
-    const endpoint: string = `http://localhost:8080/laptop?sort=laptopID,desc&size=3`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop?sort=laptopID,desc&size=3`;
     return takeLaptop(endpoint);
 }
 
 export async function take8MostExLaptop(): Promise<ResultPagingInterface> {
-    const endpoint: string = `http://localhost:8080/laptop?sort=sellingPrice,desc&size=8`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop?sort=sellingPrice,desc&size=8`;
     return takeLaptop(endpoint);
 }
 
 export async function take10CheapExLaptop(): Promise<ResultPagingInterface> {
-    const endpoint: string = `http://localhost:8080/laptop?sort=sellingPrice,asc&size=10`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop?sort=sellingPrice,asc&size=10`;
     return takeLaptop(endpoint);
 }
 
 export async function findBooks(keyWordFindBooks: string): Promise<ResultPagingInterface> {
 
 
-    let endpoint = `http://localhost:8080/laptop/search/findByLaptopNameContaining?laptopName=${keyWordFindBooks}`;
+    let endpoint = `http://14.225.205.7:8080/laptop/search/findByLaptopNameContaining?laptopName=${keyWordFindBooks}`;
 
     return takeLaptop(endpoint);
 }
 
 export async function findLaptopBrand(brandID: number): Promise<ResultPagingInterface> {
-    let endpoint: string = `http://localhost:8080/laptop/search/findByBrand_BrandID?brandID=${brandID}`;
+    let endpoint: string = `http://14.225.205.7:8080/laptop/search/findByBrand_BrandID?brandID=${brandID}`;
     return takeLaptop(endpoint);
 }
 
 export async function findLaptopByModel(modelID: number): Promise<ResultPagingInterface> {
-    let endpoint: string = `http://localhost:8080/laptop/search/findByModel_ModelID?modelID=${modelID}`;
+    let endpoint: string = `http://14.225.205.7:8080/laptop/search/findByModel_ModelID?modelID=${modelID}`;
     return takeLaptop(endpoint);
 }
 
 export async function takeALaptopFromID(laptopID: number): Promise<LaptopModel | null> {
-    const endpoint: string = `http://localhost:8080/laptop/${laptopID}`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop/${laptopID}`;
 
 
     try {

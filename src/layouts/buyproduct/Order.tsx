@@ -95,16 +95,12 @@ export const Order = () => {
                         <div className="cart-top-container">
                             <div className="cart-top-wrap">
                                 <div className="cart-top-wrap-item cart-top-wrap-item-active">
-
                                 </div>
                                 <div className="cart-top-wrap-item cart-top-wrap-item-active">
-
                                 </div>
                                 <div className="cart-top-wrap-item">
-
                                 </div>
                                 <div className="cart-top-wrap-item">
-
                                 </div>
                             </div>
                             <div className="cart-top-wrap-active1 ">
@@ -259,7 +255,7 @@ export const Order = () => {
                                     <div className="cart-content-right-bottom">
                                         <div className="cart-content-right-bottom-button">
                                             {orderButton && <Link to="/order-inform"><button>ĐẶT HÀNG</button></Link>}
-                                            {(orderButton == false) && <Link to="/order-continue"><button>TIẾP TỤC THANH TOÁN</button></Link>}
+                                            {(orderButton == false) && <Link to="/payment"><button>TIẾP TỤC THANH TOÁN</button></Link>}
                                         </div>
                                     </div>
                                 </form>

@@ -28,7 +28,7 @@ return result;
 }
 
 export async function takeAllDistrictOfOneProvince(provinceID: string):Promise<Districts[]> {
-    const endpoint:string = `http://localhost:8080/districts/search/findByProvinceCode?provinceCode=${provinceID}`;
+    const endpoint:string = `http://14.225.205.7:8080/districts/search/findByProvinceCode?provinceCode=${provinceID}`;
     return takeOneDistrict(endpoint);
 }
 

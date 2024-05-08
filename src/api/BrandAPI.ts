@@ -32,17 +32,17 @@ async function takeAllBrandBackEnd(endpoint: string): Promise<BrandModel[]> {
 
 
 export async function takeBrandofALaptop(laptopID: number): Promise<BrandModel> {
-    let endpoint = `http://localhost:8080/laptop/${laptopID}/brand`;
+    let endpoint = `http://14.225.205.7:8080/laptop/${laptopID}/brand`;
     return takeOneBrandBackEnd(endpoint);
 }
 
 export async function takeBrandFromID(brandID: number): Promise<BrandModel> {
-    let endpoint = `http://localhost:8080/brand/${brandID}`;
+    let endpoint = `http://14.225.205.7:8080/brand/${brandID}`;
     return takeOneBrandBackEnd(endpoint);
 }
 
 export async function takeAllBrand(): Promise<BrandModel[]> {
-    let endpoint = `http://localhost:8080/brand?sort=brandID,arc`;
+    let endpoint = `http://14.225.205.7:8080/brand?sort=brandID,arc`;
     return takeAllBrandBackEnd(endpoint);
 }
 

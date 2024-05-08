@@ -116,7 +116,7 @@ export function RegisterUser() {
             const base64Avatar = avatar ? await getBase64(avatar) : null;
             console.log("avatar: " + base64Avatar);
             try {
-                const url = 'http://localhost:8080/api/account/register';
+                const url = 'http://14.225.205.7:8080/api/account/register';
                 const response = await fetch(url, {
                     method: 'POST',
                     headers: {
@@ -151,7 +151,7 @@ export function RegisterUser() {
     // CHECKING USERNAME
     const checkingUserName = async (userName: string) => {
         // endpoint
-        const url = `http://localhost:8080/user/search/existsByUserName?userName=${userName}`;
+        const url = `http://14.225.205.7:8080/user/search/existsByUserName?userName=${userName}`;
         // call api
         try {
             const response = await fetch(url);
@@ -177,7 +177,7 @@ export function RegisterUser() {
     // ENDING CHECKING EMAIL
     const checkingEmail = async (email: string) => {
         //endpoint
-        const url = `http://localhost:8080/user/search/existsByEmail?email=${email}`;
+        const url = `http://14.225.205.7:8080/user/search/existsByEmail?email=${email}`;
         // call api
         try {
             const response = await fetch(url);

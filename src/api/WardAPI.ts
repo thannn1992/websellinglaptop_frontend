@@ -27,7 +27,7 @@ return result;
 }
 
 export async function takeAllWardOfOneDistrict(districtID: string):Promise<Wards[]> {
-    const endpoint:string = `http://localhost:8080/wards/search/findByDistrictCode?districtCode=${districtID}`;
+    const endpoint:string = `http://14.225.205.7:8080/wards/search/findByDistrictCode?districtCode=${districtID}`;
     return takeOneWard(endpoint);
 }
 

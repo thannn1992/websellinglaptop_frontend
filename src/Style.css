@@ -1989,8 +1989,6 @@ td:last-child {
   margin: 20px;
   justify-content: center;
   text-align: center;
-
-
 }
 
 .cart-top-wrap {
@@ -2017,7 +2015,18 @@ td:last-child {
   top: 0;
   left: 0;
   transform: translateY(-20px);
-
+}
+.cart-top-wrap-active2 {
+  margin: 25px 27px;
+  height: 5px;
+  width: 64%;
+  background-color: #0065EE;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-20px);
 }
 
 
@@ -2669,8 +2678,6 @@ td:last-child {
   border: 2px solid #76bdee;
 }
 
-.order_custom_infor_VAT {}
-
 .order_custom_infor_VAT label {
   margin-right: 10px;
   margin-bottom: 15px;
@@ -2836,6 +2843,26 @@ td:last-child {
   font-size: 20px;
   font-weight: 600;
 }
+
+/* ---------------REGISTER USER----------------- */
+
+.payment_bottom{
+  padding: 50px 0 50px 0;
+  display: flex;
+  justify-content: center;
+}
+
+.payment_bottom p{
+
+font-size: 30px;
+color: #0065EE;
+}
+
+
+
+
+
+
 
 /* ---------------REGISTER USER----------------- */
 .register_background_colour {

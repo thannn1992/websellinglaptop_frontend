@@ -15,7 +15,7 @@ export function ActivateAccount() {
 
     const perFormActiveAccount = async () => {
         try {
-            const url: string = `http://localhost:8080/api/account/active?email=${email}&activecode=${activecode}`;
+            const url: string = `http://14.225.205.7:8080/api/account/active?email=${email}&activecode=${activecode}`;
             const response = await fetch(url, { method: "GET" });
 
             if(response.ok){

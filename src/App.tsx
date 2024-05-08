@@ -27,6 +27,7 @@ import { InformDialogContextProvider } from './contexts/InformContextProvider';
 import { ConfirmDialogContextProvider } from './contexts/ConfirmContextProvider';
 import { WarrantiesPolicy } from './layouts/company-infor/WarrantiesPolicy';
 import UpdateAccount_User from './layouts/user/UpdateAccount';
+import { Payment } from './layouts/buyproduct/Payment';
 
 function App() {
 
@@ -37,18 +38,15 @@ function App() {
       <ShoppingContextProvider>
         <InformDialogContextProvider>
           <ConfirmDialogContextProvider>
-
-
             <BrowserRouter>
               <Navbar setKeyWordFindLaptops={setKeyWordFindLaptops} />
               <Routes>
 
                 <Route path='/' element={<HomePage keyWordFindLaptops={keyWordFindLaptops} />} />
                 {/*:brandID  tạo ra parammeter sau đó qua HomePage dùng 
-          const{brandID} = useParams() để lấy được giá trị của brandID
-          LƯU Ý: Tên sau dấu : phải tương đồng không là không lấy được*/}
+                  const{brandID} = useParams() để lấy được giá trị của brandID
+                  LƯU Ý: Tên sau dấu : phải tương đồng không là không lấy được*/}
                 <Route path='/:brandID' element={<LaptopBrand />} />
-
                 <Route path='/laptop/:laptopID' element={<LaptopDetails />} />
                 <Route path='/register' element={<RegisterUser />} />
                 <Route path='/active/:email/:activecode' element={<ActivateAccount />} />
@@ -57,6 +55,7 @@ function App() {
                 <Route path='/inform-error-403' element={<InformError403 />} />
                 <Route path='/cart' element={<Cart />} />
                 <Route path='/order' element={<Order />} />
+                <Route path='/payment' element={<Payment />} />
                 <Route path='/address' element={<Address />} />
                 <Route path='/model/:modelID' element={<LaptopModelName />} />
                 <Route path='/find-laptop' element={<FindLaptop keyWordFindLaptops={keyWordFindLaptops} />} />
@@ -65,15 +64,13 @@ function App() {
                 <Route path='/update-account' element={<UpdateAccount_User/>} />
                 <Route path='/add-produce' element={<LaptopAddingForm_Admin/>} />
               </Routes>
-
               <Footer />
+             
             </BrowserRouter>
           </ConfirmDialogContextProvider>
         </InformDialogContextProvider>
       </ShoppingContextProvider>
     </div>
-
-
   );
 }
 

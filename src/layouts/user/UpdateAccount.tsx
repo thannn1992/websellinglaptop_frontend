@@ -92,7 +92,7 @@ function UpdateAccount() {
         console.log("avatar: " + base64Avatar);
         const token = localStorage.getItem('token');
         try {
-            const url = 'http://localhost:8080/api/account/update';
+            const url = 'http://14.225.205.7:8080/api/account/update';
             const response = await fetch(url, {
                 method: 'POST',
                 headers: {

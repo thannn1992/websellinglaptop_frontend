@@ -23,11 +23,11 @@ return result;
 }
 
 export async function takeAllPictureOfOneLaptop(laptopID:number):Promise<PictureModel[]> {
-    const endpoint:string = `http://localhost:8080/laptop/${laptopID}/listPictures`;
+    const endpoint:string = `http://14.225.205.7:8080/laptop/${laptopID}/listPictures`;
     return takePictureOfALaptop(endpoint);
 }
 
 export async function takeOnePictureOfOneLaptop(laptopID:number):Promise<PictureModel[]> {
-    const endpoint:string = `http://localhost:8080/laptop/${laptopID}/listPictures?sort=pictureID,asc&page=0&size=1`;
+    const endpoint:string = `http://14.225.205.7:8080/laptop/${laptopID}/listPictures?sort=pictureID,asc&page=0&size=1`;
     return takePictureOfALaptop(endpoint);
 }

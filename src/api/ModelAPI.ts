@@ -29,17 +29,17 @@ async function takeAllModel(endpoint: string): Promise<ModelModel[]> {
 }
 
     export async function takeModelofALaptop(laptopID: number): Promise<ModelModel> {
-        let endpoint = `http://localhost:8080/laptop/${laptopID}/model`;
+        let endpoint = `http://14.225.205.7:8080/laptop/${laptopID}/model`;
         return takeAModel(endpoint);
     }
 
     export async function takeAllModelofABrand(modelID: number): Promise<ModelModel[]> {
-        let endpoint = `http://localhost:8080/model/search/findByBrand_BrandID?brandID=${modelID}`;
+        let endpoint = `http://14.225.205.7:8080/model/search/findByBrand_BrandID?brandID=${modelID}`;
         return takeAllModel(endpoint);
 
     }
 
     export async function takeModelFromID(modelID: number): Promise<ModelModel> {
-        let endpoint = `http://localhost:8080/model/${modelID}`;
+        let endpoint = `http://14.225.205.7:8080/model/${modelID}`;
         return takeAModel(endpoint);
     }

@@ -172,7 +172,7 @@ const LaptopAddingForm: React.FC = (props) => {
         // }));
 
         const token = localStorage.getItem('token');
-        fetch('http://localhost:8080/api/produce/add', {
+        fetch('http://14.225.205.7:8080/api/produce/add', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

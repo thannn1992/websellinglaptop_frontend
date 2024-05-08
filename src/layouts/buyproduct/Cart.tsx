@@ -112,22 +112,22 @@ export const Cart = () => {
                                                 <tbody >
                                                     {cartItems.map(item => {
                                                         return (
-                                                            <React.Fragment key={item.produceID}>
+                                                            <React.Fragment key={item.getProduceID()}>
                                                                 <tr className="cart-content-left-laptopItem-small1">
-                                                                    <td rowSpan={2}> <img src={`${item.produceThumbnail ? item.produceThumbnail.getPictureData() : ''}`} alt="" /></td>
-                                                                    <td colSpan={4}><p> {item.produceName}</p></td>
+                                                                    <td rowSpan={2}> <img src={`${item.getProduceThumbnail() ? item.getProduceThumbnail().getPictureData() : ''}`} alt="" /></td>
+                                                                    <td colSpan={4}><p> {item.getProduceName()}</p></td>
 
-                                                                    <td><button type="button" onClick={() => removeCartItem(item.produceID)}><i className="fa-regular fa-trash-can"></i></button></td>
+                                                                    <td><button type="button" onClick={() => removeCartItem(item.getProduceID())}><i className="fa-regular fa-trash-can"></i></button></td>
                                                                 </tr>
                                                                 <tr className="cart-content-left-laptopItem-small2">
                                                                     <td colSpan={3}><p>
-                                                                        {formatNumber(item.produceQty * item.produceSellingPrice)} <sup>đ</sup>
+                                                                        {formatNumber(item.getProduceQty() * item.getProduceSellingPrice())} <sup>đ</sup>
                                                                     </p></td>
 
                                                                     <td colSpan={2}>
-                                                                        <button type="button" onClick={() => decreaseQty(item.produceID)}> -</button>
-                                                                        <button type="button" > {item.produceQty}</button>
-                                                                        <button type="button" onClick={() => increaseQty(item.produceID)}  >+</button>
+                                                                        <button type="button" onClick={() => decreaseQty(item.getProduceID())}> -</button>
+                                                                        <button type="button" > {item.getProduceQty()}</button>
+                                                                        <button type="button" onClick={() => increaseQty(item.getProduceID())}  >+</button>
                                                                     </td>
                                                                 </tr>
                                                             </React.Fragment>
@@ -151,19 +151,19 @@ export const Cart = () => {
                                                     {cartItems.map(item => {
                                                         return (
                                                             <tr className="cart-content-left-laptopItem">
-                                                                <td> <img src={`${item.produceThumbnail ? item.produceThumbnail.getPictureData() : ''}`} alt="" /></td>
-                                                                <td><p> {item.produceName}</p></td>
-                                                                <td><p>{formatNumber(item.produceSellingPrice)} <sup>đ</sup></p></td>
+                                                                <td> <img src={`${item.getProduceThumbnail() ? item.getProduceThumbnail().getPictureData() : ''}`} alt="" /></td>
+                                                                <td><p> {item.getProduceName()}</p></td>
+                                                                <td><p>{formatNumber(item.getProduceSellingPrice())} <sup>đ</sup></p></td>
                                                                 <td>
-                                                                    <button type="button" onClick={() => decreaseQty(item.produceID)}> -</button>
-                                                                    <button type="button" > {item.produceQty}</button>
-                                                                    <button type="button" onClick={() => increaseQty(item.produceID)}  >+</button></td>
+                                                                    <button type="button" onClick={() => decreaseQty(item.getProduceID())}> -</button>
+                                                                    <button type="button" > {item.getProduceQty()}</button>
+                                                                    <button type="button" onClick={() => increaseQty(item.getProduceID())}  >+</button></td>
                                                                 <td>
                                                                     <p>
-                                                                        {formatNumber(item.produceQty * item.produceSellingPrice)} <sup>đ</sup>
+                                                                        {formatNumber(item.getProduceQty() * item.getProduceSellingPrice())} <sup>đ</sup>
                                                                     </p>
                                                                 </td>
-                                                                <td><button type="button" onClick={() => {handleShowNotification(); handleUpdateProduceID(item.produceID)}}>
+                                                                <td><button type="button" onClick={() => {handleShowNotification(); handleUpdateProduceID(item.getProduceID())}}>
                                                                     <i className="fa-regular fa-trash-can"></i></button></td>
                                                                 {/* <td><button type="button" onClick={() => removeCartItem(item.produceID)}>
                                                                 <i className="fa-regular fa-trash-can"></i></button></td> */}

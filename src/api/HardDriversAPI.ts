@@ -35,16 +35,16 @@ async function takeAllHardDriversBackEnd(endpoint: string): Promise<HardDriverMo
 }
 
 export async function takeAllHardDriverOfOneLaptop(laptopID: number): Promise<HardDriverModel[]> {
-    const endpoint: string = `http://localhost:8080/laptop/${laptopID}/listHardDriver?sort=hardDriverID,asc`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop/${laptopID}/listHardDriver?sort=hardDriverID,asc`;
     return takeAllHardDriversBackEnd(endpoint);
 }
 
 export async function takeOneHardDriverFromID(hardDriverID: number): Promise<HardDriverModel> {
-    let endpoint = `http://localhost:8080/hard-driver/${hardDriverID}`;
+    let endpoint = `http://14.225.205.7:8080/hard-driver/${hardDriverID}`;
     return takeOneHardDriversBackEnd(endpoint);
 }
 
 export async function takeAllHardDriver(): Promise<HardDriverModel[]> {
-    let endpoint = `http://localhost:8080/hard-driver`;
+    let endpoint = `http://14.225.205.7:8080/hard-driver`;
     return takeAllHardDriversBackEnd(endpoint);
 }

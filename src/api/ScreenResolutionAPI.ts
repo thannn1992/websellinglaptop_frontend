@@ -32,17 +32,17 @@ async function takeAllScreenResolutionBackEnd(endpoint: string): Promise<ScreenR
 }
 
 export async function takeOneScreenOfOneLaptop(laptopID: number): Promise<ScreenResolutionModel> {
-    const endpoint: string = `http://localhost:8080/laptop/${laptopID}/screenResolution`;
+    const endpoint: string = `http://14.225.205.7:8080/laptop/${laptopID}/screenResolution`;
     return takeOneScreenResolution(endpoint);
 }
 
 export async function takeAllScreenResolution(): Promise<ScreenResolutionModel[]> {
-    const endpoint: string = `http://localhost:8080/screen-resolution`;
+    const endpoint: string = `http://14.225.205.7:8080/screen-resolution`;
     return takeAllScreenResolutionBackEnd(endpoint);
 }
 
 export async function takeOneScreenByID(screenResolutionID: number): Promise<ScreenResolutionModel> {
-    const endpoint: string = `http://localhost:8080/screen-resolution/${screenResolutionID}`;
+    const endpoint: string = `http://14.225.205.7:8080/screen-resolution/${screenResolutionID}`;
     return takeOneScreenResolution(endpoint);
 }
 

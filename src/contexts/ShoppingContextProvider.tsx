@@ -117,7 +117,7 @@ export const ShoppingContextProvider = ({ children }: ShoppingContextProviderPro
         console.log("decreaseQty => ", id)
         const currentCartItem = cartItems.find(item => item.getProduceID() === id)
         if (currentCartItem) {
-            if (currentCartItem.getProduceID() == 1) {
+            if (currentCartItem.getProduceQty() == 1) {
                 // do nothing
             } else {
                 const newCartItems = cartItems.map(item => {
@@ -127,7 +127,7 @@ export const ShoppingContextProvider = ({ children }: ShoppingContextProviderPro
                             item.getProduceID(),
                             item.getProduceName(),
                             item.getProduceSellingPrice(),
-                            item.getProduceQty() + 1,
+                            item.getProduceQty() - 1,
                             item.getProduceThumbnail()
                         )
                     } else {
@@ -141,7 +141,6 @@ export const ShoppingContextProvider = ({ children }: ShoppingContextProviderPro
     }
 
     const addCartItem = (product: LaptopModel) => {
-        console.log("product => ", product)
 
         takeAllPictureOfOneLaptop(product.getLaptopID()).then(
             pictureData => {
@@ -173,7 +172,6 @@ export const ShoppingContextProvider = ({ children }: ShoppingContextProviderPro
                             1,
                             pictureResult
                         );
-
 
                         //  copy all the elements from cartItems, and add newCartItem
                         // If want to modify have to use map const updatedCartItems = cartItems.map(item => {
